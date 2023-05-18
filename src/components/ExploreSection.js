@@ -44,33 +44,35 @@ const data = [
 ];
 
 const ExploreSection = () => {
-  return (
-    <View style={styles.container}>
+  const HeaderComponent = (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 16,
+      }}
+    >
+      <View style={{ gap: 4 }}>
+        <Text style={styles.title}>Explore Food</Text>
+        <Text style={styles.desc}>Find your nearest donor</Text>
+      </View>
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 16,
+          justifyContent: "center",
         }}
       >
-        <View style={{ gap: 4 }}>
-          <Text style={styles.title}>Explore Food</Text>
-          <Text style={styles.desc}>Find your nearest donor</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ color: "gray" }}>See All</Text>
-          <Ionicons name={"chevron-forward"} size={18} color={"gray"} />
-        </View>
+        <Text style={{ color: "gray" }}>See All</Text>
+        <Ionicons name={"chevron-forward"} size={18} color={"gray"} />
       </View>
-
+    </View>
+  );
+  return (
+    <View style={styles.container}>
       <FlatList
+        ListHeaderComponent={HeaderComponent}
         data={data}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ gap: 8 }}

@@ -5712,6 +5712,11 @@ react-native-gradle-plugin@^0.71.17:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.18.tgz#20ef199bc85be32e45bb6cc069ec2e7dcb1a74a6"
   integrity sha512-7F6bD7B8Xsn3JllxcwHhFcsl9aHIig47+3eN4IHFNqfLhZr++3ElDrcqfMzugM+niWbaMi7bJ0kAkAL8eCpdWg==
 
+react-native-radio-buttons-group@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-radio-buttons-group/-/react-native-radio-buttons-group-3.0.1.tgz#d78edf90e67c99394da674129f93da4a3dd467be"
+  integrity sha512-F54i/tt5+BUoZwwbo+9zCf4tKGz9KahcH5g6P+bLwkWC0BC07da5cwGU+8Akru981HaMzx6f7Jgl3ZAhR1Fd4Q==
+
 react-native-safe-area-context@^4.5.3:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.5.3.tgz#e98eb1a73a6b3846d296545fe74760754dbaaa69"
