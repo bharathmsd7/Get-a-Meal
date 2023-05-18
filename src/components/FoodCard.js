@@ -21,12 +21,21 @@ const FoodCard = ({ item }) => {
             }}
           />
         </View>
-        <View style={{ paddingHorizontal: 16, justifyContent: "space-around" }}>
+        <View
+          style={{
+            paddingLeft: 16,
+            justifyContent: "space-around",
+            flex: 1,
+          }}
+        >
           <View>
-            <Text style={{ fontSize: 18, fontWeight: "500" }}>
+            <Text numberOfLines={1} style={{ fontSize: 18, fontWeight: "500" }}>
               {item.title}
             </Text>
-            <Text style={{ fontSize: 14, fontWeight: "400", color: "gray" }}>
+            <Text
+              numberOfLines={1}
+              style={{ fontSize: 14, fontWeight: "400", color: "gray" }}
+            >
               {item.description}
             </Text>
           </View>
@@ -62,5 +71,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     padding: 12,
     borderColor: "#F5F4F4",
+    backgroundColor: "#FFFFFF",
   },
 });

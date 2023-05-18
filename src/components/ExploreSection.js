@@ -15,7 +15,7 @@ const data = [
   },
   {
     title: "Food available for 5 people",
-    description: "Cooked rice, fish, daal full packed",
+    description: "Cooked rice, fish, daal full packed, dry fruits and cucumber",
     veg: true,
     distance: "2",
     url: "https://ministryofcurry.com/wp-content/uploads/2020/12/fish-curry-6-scaled.jpg",
