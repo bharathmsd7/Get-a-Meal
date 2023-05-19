@@ -13,13 +13,16 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import Slider from "@react-native-community/slider";
 import Button from "../components/Button";
 import { fetchAll, fetchOne, getAccount, login, logout } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../redux/reducers/userReducer";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    // login("test@test.com", "password");
-    // fetchAll("test-db", "test");
-    fetchOne("test-db", "test", "6465d6f8105dda7971da");
+    // dispatch(userLogin({ email: "test@test.com", password: "password" }));
   }, []);
+  const username = useSelector(selectUser);
+  console.log("USERNAME :", username);
   const FoodType = useMemo(
     () => [
       {

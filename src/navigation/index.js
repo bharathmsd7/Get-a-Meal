@@ -22,6 +22,7 @@ import SettingScreen from "../screens/SettingScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AddScreen from "../screens/AddScreen";
 import ChatScreen from "../screens/ChatScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 // Stack Navigator
 const Stack = createNativeStackNavigator();
@@ -120,6 +121,7 @@ function AppRouter() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Add" component={AddScreen} />
