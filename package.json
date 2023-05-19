@@ -5,7 +5,8 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build-dev": "eas build --profile develop --platform android"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -16,17 +17,18 @@
     "appwrite": "^11.0.0",
     "expo": "~48.0.15",
     "expo-dev-client": "~2.2.1",
+    "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.7",
     "react-native-curved-bottom-bar": "^3.2.6",
     "react-native-mmkv": "^2.8.0",
     "react-native-radio-buttons-group": "^3.0.1",
+    "react-native-reanimated": "^3.1.0",
     "react-native-safe-area-context": "^4.5.3",
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
-    "rn-sliding-up-panel": "^2.4.6",
-    "expo-splash-screen": "~0.18.2"
+    "rn-sliding-up-panel": "^2.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
