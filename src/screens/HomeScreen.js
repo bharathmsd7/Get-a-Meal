@@ -1,7 +1,7 @@
 /** @format */
 
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
@@ -12,8 +12,14 @@ import ExploreSection from "../components/ExploreSection";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import Slider from "@react-native-community/slider";
 import Button from "../components/Button";
+import { fetchAll, fetchOne, getAccount, login, logout } from "../hooks";
 
 const HomeScreen = () => {
+  useEffect(() => {
+    // login("test@test.com", "password");
+    // fetchAll("test-db", "test");
+    fetchOne("test-db", "test", "6465d6f8105dda7971da");
+  }, []);
   const FoodType = useMemo(
     () => [
       {
