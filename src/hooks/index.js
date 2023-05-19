@@ -5,9 +5,10 @@ import api from "../api/api";
 export async function login(email, password) {
   try {
     const result = await api.createSession(email, password);
-    console.log("RESPONSE ", JSON.stringify(result));
+    return result;
   } catch (err) {
     console.log("ERROR", err);
+    return "error";
   }
 }
 export async function getAccount() {
@@ -16,6 +17,17 @@ export async function getAccount() {
     console.log("RESPONSE ", JSON.stringify(result));
   } catch (err) {
     console.log("ERROR", err);
+  }
+}
+
+export async function getSession(sessionId) {
+  try {
+    const result = await api.getSession(sessionId);
+    console.log("SESSION RESPONSE ", JSON.stringify(result));
+    return result;
+  } catch (err) {
+    console.log("ERROR", err);
+    return "error";
   }
 }
 export async function logout() {

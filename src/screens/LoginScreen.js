@@ -6,14 +6,24 @@ import Layout from "../components/Layout";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUser,
+  userLogin,
+  userSession,
+} from "../redux/reducers/userReducer";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [disabled, setDisabled] = useState(true);
 
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  console.log(user);
   const handleLogin = () => {
-    console.warn(email, password);
+    // dispatch(userLogin({ email, password }));
+    dispatch(userSession("6467bd761dc049b6306e"));
   };
 
   useEffect(() => {
