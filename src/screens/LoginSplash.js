@@ -9,11 +9,26 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, userSession } from "../redux/reducers/userReducer";
+
 const LoginSplash = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   useEffect(() => {
-    setTimeout(() => navigation.navigate("Login"), 2500);
+    function getUserSession() {
+      dispatch(userSession());
+    }
+    getUserSession();
   }, []);
 
+  useEffect(() => {
+    if (user && !user.isError && user.data.expire) {
+      navigation.navigate("Tabs");
+    } else {
+      navigation.navigate("Login");
+    }
+  }, [user]);
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground

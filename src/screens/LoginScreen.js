@@ -7,24 +7,26 @@ import InputText from "../components/InputText";
 import Button from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectUser,
-  userLogin,
-  userSession,
-} from "../redux/reducers/userReducer";
+import { selectUser, userLogin } from "../redux/reducers/userReducer";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [disabled, setDisabled] = useState(true);
 
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  console.log(user);
+
   const handleLogin = () => {
-    // dispatch(userLogin({ email, password }));
-    dispatch(userSession("6467bd761dc049b6306e"));
+    dispatch(userLogin({ email, password }));
   };
+
+  useEffect(() => {
+    console.log("LoginScreen User: " + JSON.stringify(user));
+    if (user.data !== {} && user.data.$id && !user.isError) {
+      navigation.dispatch("Tabs");
+    }
+  }, [user]);
 
   useEffect(() => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -44,21 +46,21 @@ const LoginScreen = () => {
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="test@test.com"
-          title="Enter email address"
+          placeholder='test@test.com'
+          title='Enter email address'
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder="Hint min. 8 characters"
-          title="Enter password"
+          placeholder='Hint min. 8 characters'
+          title='Enter password'
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text="Login"
+          text='Login'
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>

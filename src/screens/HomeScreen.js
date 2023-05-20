@@ -12,8 +12,11 @@ import ExploreSection from "../components/ExploreSection";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import Slider from "@react-native-community/slider";
 import Button from "../components/Button";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/reducers/userReducer";
 
 const HomeScreen = () => {
+  const user = useSelector(selectUser);
   const FoodType = useMemo(
     () => [
       {
@@ -53,7 +56,7 @@ const HomeScreen = () => {
   const [selectedFoodType, setSelectedFoodType] = useState();
   return (
     <Layout>
-      <Header title={"Get a Meal"} />
+      <Header title={user.data.providerUid} />
 
       <SearchBar onPress={() => this._panel.show()} />
       <Category />
@@ -85,11 +88,11 @@ const HomeScreen = () => {
           </View>
           <Slider
             step={0.1}
-            thumbTintColor="#EE4544"
+            thumbTintColor='#EE4544'
             style={{ width: "100%", height: 30 }}
             minimumValue={0}
             maximumValue={1}
-            minimumTrackTintColor="#EE4544"
+            minimumTrackTintColor='#EE4544'
             // maximumTrackTintColor="#000000"
           />
           <Text
@@ -103,10 +106,10 @@ const HomeScreen = () => {
             Food type
           </Text>
           <RadioGroup
-            color="#EE4544"
+            color='#EE4544'
             radioButtons={FoodType}
             onPress={setSelectedFoodType}
-            layout="row"
+            layout='row'
             selectedId={selectedFoodType}
           />
           <Text
@@ -120,16 +123,16 @@ const HomeScreen = () => {
             Sort by
           </Text>
           <RadioGroup
-            color="#EE4544"
+            color='#EE4544'
             radioButtons={Sortby}
             onPress={setSelectedSortby}
-            layout="row"
+            layout='row'
             selectedId={selectedSortby}
           />
           <Button
             style={{ marginTop: 26 }}
             onPress={() => this._panel.hide()}
-            text="Show results"
+            text='Show results'
           />
           <Pressable style={{ marginVertical: 8, alignSelf: "center" }}>
             <Text

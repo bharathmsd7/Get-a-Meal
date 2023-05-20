@@ -15,6 +15,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNavigationContainerRef } from "@react-navigation/native";
 
 import HomeScreen from "../screens/HomeScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
@@ -25,6 +26,18 @@ import ChatScreen from "../screens/ChatScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LoginSplash from "../screens/LoginSplash";
 
+export const navigationRef = createNavigationContainerRef();
+
+export function navigate(name, params) {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name, params);
+  }
+}
+export function navigateAndReplace(name, params) {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(name, params);
+  }
+}
 // Stack Navigator
 const Stack = createNativeStackNavigator();
 
@@ -120,7 +133,7 @@ function Tabs({ navigation }) {
 
 function AppRouter() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Splash' component={LoginSplash} />
         <Stack.Screen name='Login' component={LoginScreen} />

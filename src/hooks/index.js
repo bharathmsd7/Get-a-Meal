@@ -34,8 +34,10 @@ export async function logout() {
   try {
     const result = await api.deleteCurrentSession();
     console.log("RESPONSE ", JSON.stringify(result));
+    return result;
   } catch (err) {
     console.log("ERROR", err);
+    return "error";
   }
 }
 

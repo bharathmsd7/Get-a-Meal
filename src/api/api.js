@@ -41,6 +41,10 @@ let api = {
     return api.provider().account.deleteSession("current");
   },
 
+  deleteSessions: () => {
+    return api.provider().account.deleteSessions();
+  },
+
   createDocument: (databaseId, collectionId, data, permissions) => {
     return api
       .provider()
