@@ -19,7 +19,7 @@ import { createNavigationContainerRef } from "@react-navigation/native";
 
 import HomeScreen from "../screens/HomeScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
-import SettingScreen from "../screens/SettingScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AddScreen from "../screens/AddScreen";
 import ChatScreen from "../screens/ChatScreen";
@@ -55,8 +55,8 @@ function Tabs({ navigation }) {
       case "Chat":
         icon = "chatbox-outline";
         break;
-      case "Setting":
-        icon = "settings-outline";
+      case "Profile":
+        icon = "person-outline";
         break;
     }
 
@@ -123,8 +123,8 @@ function Tabs({ navigation }) {
         position='RIGHT'
       />
       <CurvedBottomBarExpo.Screen
-        name='Setting'
-        component={() => <SettingScreen />}
+        name='Profile'
+        component={() => <ProfileScreen />}
         position='RIGHT'
       />
     </CurvedBottomBarExpo.Navigator>

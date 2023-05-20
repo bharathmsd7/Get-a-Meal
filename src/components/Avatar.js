@@ -4,7 +4,7 @@ import { StyleSheet, Image, View } from "react-native";
 import React from "react";
 
 const Avatar = ({ url }) => {
-  const size = 40;
+  const size = 45;
   return (
     <View
       style={{
@@ -13,12 +13,14 @@ const Avatar = ({ url }) => {
         height: size,
         borderWidth: 1,
         borderColor: "lightgray",
-        elevation: 5,
+        justifyContent: "center",
+        alignContent: "center",
+        backgroundColor: "lightgray",
       }}
     >
       <Image
-        style={{ width: "100%", height: "100%", borderRadius: 100 }}
-        source={{ uri: url }}
+        style={{ width: "100%", height: "100%" }}
+        source={require("../../assets/icons/avatar.png")}
       />
     </View>
   );

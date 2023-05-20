@@ -54,6 +54,8 @@ const Category = () => {
                 alignItems: "center",
                 backgroundColor: "#F5F4F4",
                 borderRadius: 50,
+                borderWidth: 0.7,
+                borderColor: "lightgray",
               }}
             >
               <Image

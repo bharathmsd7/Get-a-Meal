@@ -68,10 +68,10 @@ export default FoodCard;
 const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
-    borderWidth: 1.5,
+    borderWidth: 1,
     padding: 12,
-    borderColor: "#F5F4F4",
+    borderColor: "lightgray",
     backgroundColor: "#FFFFFF",
-    marginBottom: 8,
+    marginBottom: 16,
   },
 });

@@ -9,7 +9,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 const Header = ({ title }) => {
   return (
     <View style={styles.container}>
-      <Ionicons name={"menu"} size={28} color={"black"} />
+      <Ionicons name={"arrow-back"} size={28} color={"gray"} />
       <Text style={styles.title}>{title}</Text>
       <Avatar url={"https://picsum.photos/701"} />
     </View>

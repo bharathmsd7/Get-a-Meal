@@ -14,6 +14,7 @@ import Slider from "@react-native-community/slider";
 import Button from "../components/Button";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userReducer";
+import Avatar from "../components/Avatar";
 
 const HomeScreen = () => {
   const user = useSelector(selectUser);
@@ -56,7 +57,10 @@ const HomeScreen = () => {
   const [selectedFoodType, setSelectedFoodType] = useState();
   return (
     <Layout>
-      <Header title={user.data.providerUid} />
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>Bonjour Bharath 👋🏻</Text>
+        <Avatar />
+      </View>
 
       <SearchBar onPress={() => this._panel.show()} />
       <Category />
@@ -162,5 +166,17 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     paddingHorizontal: 24,
     paddingTop: 16,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 20,
+    marginHorizontal: 16,
+    justifyContent: "space-between",
+  },
+  title: {
+    fontSize: 24,
+    color: "#000000",
+    fontWeight: "500",
   },
 });
