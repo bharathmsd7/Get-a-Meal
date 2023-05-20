@@ -24,7 +24,7 @@ const LoginScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("LoginScreen User: " + JSON.stringify(user));
     if (user.data !== {} && user.data.$id && !user.isError) {
-      navigation.dispatch("Tabs");
+      navigation.replace("Tabs");
     }
   }, [user]);
 

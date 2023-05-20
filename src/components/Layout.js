@@ -7,7 +7,7 @@ const Layout = ({ scroll, children }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView scrollEnabled={scroll} showsVerticalScrollIndicator={false}>
-        <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
+        <StatusBar backgroundColor='#FFF' barStyle='dark-content' />
         {children}
       </ScrollView>
     </SafeAreaView>

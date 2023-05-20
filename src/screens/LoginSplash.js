@@ -24,9 +24,9 @@ const LoginSplash = ({ navigation }) => {
 
   useEffect(() => {
     if (user && !user.isError && user.data.expire) {
-      navigation.navigate("Tabs");
+      navigation.replace("Tabs");
     } else {
-      navigation.navigate("Login");
+      navigation.replace("Login");
     }
   }, [user]);
   return (
