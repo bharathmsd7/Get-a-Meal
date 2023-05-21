@@ -63,7 +63,15 @@ const Category = () => {
                 source={{ uri: item.url }}
               />
             </View>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>{item.name}</Text>
+            <Text
+              style={{
+                marginTop: 8,
+                fontSize: 14,
+                fontFamily: "Outfit_600SemiBold",
+              }}
+            >
+              {item.name}
+            </Text>
           </View>
         )}
       />

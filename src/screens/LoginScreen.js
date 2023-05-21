@@ -88,7 +88,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   socialText: {
     fontSize: 16,
-    fontWeight: 500,
+    fontFamily: "Outfit_600SemiBold",
   },
   socialContainer: {
     padding: 16,
@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
   },
   orText: {
     fontSize: 16,
-    fontWeight: 500,
+    fontFamily: "Outfit_600SemiBold",
+
     color: "lightgrey",
     paddingHorizontal: 8,
   },
@@ -133,6 +134,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 500,
+    fontFamily: "Outfit_600SemiBold",
   },
 });

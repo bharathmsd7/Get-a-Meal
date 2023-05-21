@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: "800",
+    fontFamily: "Outfit_700Bold",
   },
 });

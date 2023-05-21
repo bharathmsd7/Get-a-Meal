@@ -90,7 +90,9 @@ const ExploreSection = () => {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: "gray" }}>See All</Text>
+          <Text style={{ color: "gray", fontFamily: "Outfit_600SemiBold" }}>
+            See All
+          </Text>
           <Ionicons name={"chevron-forward"} size={18} color={"gray"} />
         </View>
       </View>
@@ -109,10 +111,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
+    fontFamily: "Outfit_700Bold",
     fontSize: 22,
-    fontWeight: "bold",
   },
   desc: {
+    fontFamily: "Outfit_600SemiBold",
     color: "gray",
   },
 });

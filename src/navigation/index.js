@@ -67,7 +67,12 @@ function Tabs({ navigation }) {
           size={28}
           color={routeName === selectedTab ? "#EE4544" : "gray"}
         />
-        <Text style={{ color: routeName === selectedTab ? "#EE4544" : "gray" }}>
+        <Text
+          style={{
+            color: routeName === selectedTab ? "#EE4544" : "gray",
+            fontFamily: "Outfit_600SemiBold",
+          }}
+        >
           {routeName}
         </Text>
       </View>
@@ -131,9 +136,9 @@ function Tabs({ navigation }) {
   );
 }
 
-function AppRouter() {
+function AppRouter({ onReady }) {
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer onReady={onReady} ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Splash' component={LoginSplash} />
         <Stack.Screen name='Login' component={LoginScreen} />

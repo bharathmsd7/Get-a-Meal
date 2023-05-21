@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: 600,
+    fontFamily: "Outfit_700Bold",
   },
   input: {
     borderWidth: 1.5,
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 16,
     paddingLeft: 24,
+    fontFamily: "Outfit_600SemiBold",
   },
 });

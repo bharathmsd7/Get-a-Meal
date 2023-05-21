@@ -85,8 +85,16 @@ const HomeScreen = () => {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 18, fontWeight: "600" }}>Distance</Text>
-            <Text style={{ fontSize: 16, fontWeight: "500", color: "gray" }}>
+            <Text style={{ fontSize: 18, fontFamily: "Outfit_700Bold" }}>
+              Distance
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: "Outfit_600SemiBold",
+                color: "gray",
+              }}
+            >
               2 km
             </Text>
           </View>
@@ -104,7 +112,7 @@ const HomeScreen = () => {
               marginTop: 26,
               marginBottom: 8,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Outfit_700Bold",
             }}
           >
             Food type
@@ -115,13 +123,14 @@ const HomeScreen = () => {
             onPress={setSelectedFoodType}
             layout='row'
             selectedId={selectedFoodType}
+            descriptionStyle={{ fontFamily: "Outfit_500Medium" }}
           />
           <Text
             style={{
               marginTop: 26,
               marginBottom: 8,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Outfit_700Bold",
             }}
           >
             Sort by
@@ -144,7 +153,7 @@ const HomeScreen = () => {
                 color: "gray",
                 marginTop: 16,
                 fontSize: 16,
-                fontWeight: "600",
+                fontFamily: "Outfit_700Bold",
               }}
             >
               Reset
@@ -175,8 +184,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
+    fontFamily: "Outfit_600SemiBold",
     fontSize: 24,
     color: "#000000",
-    fontWeight: "500",
   },
 });

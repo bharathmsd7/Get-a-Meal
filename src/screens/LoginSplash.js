@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     fontSize: 20,
-    fontWeight: 500,
+    fontFamily: "Outfit_600SemiBold",
+
     letterSpacing: 1.5,
   },
   spinner: {
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 500,
+    fontFamily: "Outfit_600SemiBold",
     paddingBottom: 20,
     letterSpacing: 1,
   },

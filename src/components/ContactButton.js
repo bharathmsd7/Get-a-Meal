@@ -13,7 +13,9 @@ const ContactButton = () => {
         borderRadius: 4,
       }}
     >
-      <Text style={{ color: "#fff" }}>Contact</Text>
+      <Text style={{ color: "#fff", fontFamily: "Outfit_600SemiBold" }}>
+        Contact
+      </Text>
     </View>
   );
 };

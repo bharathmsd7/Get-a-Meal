@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: COLORS.black,
-    fontWeight: "500",
+    fontFamily: "Outfit_700Bold",
   },
 });

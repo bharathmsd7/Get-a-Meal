@@ -32,7 +32,11 @@ const ProfileScreen = () => {
             />
           </View>
           <View style={{ gap: 4 }}>
-            <Text style={styles.username}>Bharath</Text>
+            <Text
+              style={[styles.username, { fontFamily: "Outfit_600SemiBold" }]}
+            >
+              Bharath
+            </Text>
             <Text style={styles.email}>{user.data?.providerUid}</Text>
           </View>
         </View>
@@ -48,13 +52,15 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: 500,
+                  fontFamily: "Outfit_600SemiBold",
                   color: "gray",
                 }}
               >
                 Username
               </Text>
-              <Text style={{ fontSize: 16, fontWeight: 500 }}>Bharath</Text>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
+                Bharath
+              </Text>
               <View
                 style={{
                   height: 1,
@@ -72,13 +78,13 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: 500,
+                  fontFamily: "Outfit_600SemiBold",
                   color: "gray",
                 }}
               >
                 Email
               </Text>
-              <Text style={{ fontSize: 16, fontWeight: 500 }}>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
                 bharath@test.com
               </Text>
               <View
@@ -102,13 +108,13 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: 500,
+                  fontFamily: "Outfit_600SemiBold",
                   color: "gray",
                 }}
               >
                 Phone
               </Text>
-              <Text style={{ fontSize: 16, fontWeight: 500 }}>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
                 +91 880 717 0158
               </Text>
               <View
@@ -128,13 +134,16 @@ const ProfileScreen = () => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: 500,
+                  fontFamily: "Outfit_600SemiBold",
+
                   color: "gray",
                 }}
               >
                 Location
               </Text>
-              <Text style={{ fontSize: 16, fontWeight: 500 }}>Pondicherry</Text>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
+                Pondicherry
+              </Text>
               <View
                 style={{
                   height: 1,
@@ -161,6 +170,7 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   email: {
     fontSize: 16,
+    fontFamily: "Outfit_500Medium",
   },
   item: {
     alignItems: "center",
@@ -168,8 +178,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   username: {
+    fontFamily: "Outfit_600SemiBold",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: 800,
     letterSpacing: 0.5,
   },
   profilePictureContainer: {
@@ -195,7 +206,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: "#000000",
-    fontWeight: "500",
+    fontFamily: "Outfit_600SemiBold",
   },
   bodyContainer: {
     flex: 1,

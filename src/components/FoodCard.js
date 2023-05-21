@@ -29,12 +29,19 @@ const FoodCard = ({ item }) => {
           }}
         >
           <View>
-            <Text numberOfLines={1} style={{ fontSize: 18, fontWeight: "500" }}>
+            <Text
+              numberOfLines={1}
+              style={{ fontSize: 18, fontFamily: "Outfit_600SemiBold" }}
+            >
               {item.title}
             </Text>
             <Text
               numberOfLines={1}
-              style={{ fontSize: 14, fontWeight: "400", color: "gray" }}
+              style={{
+                fontSize: 14,
+                fontFamily: "Outfit_500Medium",
+                color: "gray",
+              }}
             >
               {item.description}
             </Text>
@@ -51,7 +58,12 @@ const FoodCard = ({ item }) => {
               <View
                 style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
               >
-                <Text style={{ color: "gray" }}> {item.distance} km</Text>
+                <Text
+                  style={{ color: "gray", fontFamily: "Outfit_600SemiBold" }}
+                >
+                  {" "}
+                  {item.distance} km
+                </Text>
                 <Symbol veg={item.veg} />
               </View>
             </View>

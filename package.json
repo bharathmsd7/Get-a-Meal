@@ -9,6 +9,7 @@
     "build-dev": "eas build --profile develop --platform android"
   },
   "dependencies": {
+    "@expo-google-fonts/outfit": "^0.2.3",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/slider": "4.4.2",
