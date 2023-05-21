@@ -58,7 +58,7 @@ const ProfileScreen = () => {
               >
                 Username
               </Text>
-              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
                 Bharath
               </Text>
               <View
@@ -84,7 +84,7 @@ const ProfileScreen = () => {
               >
                 Email
               </Text>
-              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
                 bharath@test.com
               </Text>
               <View
@@ -114,7 +114,7 @@ const ProfileScreen = () => {
               >
                 Phone
               </Text>
-              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
                 +91 880 717 0158
               </Text>
               <View
@@ -141,7 +141,7 @@ const ProfileScreen = () => {
               >
                 Location
               </Text>
-              <Text style={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}>
+              <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
                 Pondicherry
               </Text>
               <View
@@ -155,11 +155,11 @@ const ProfileScreen = () => {
             </View>
           </View>
         </View>
-        {/* <Button
+        <Button
           style={styles.logoutBtn}
           onPress={() => dispatch(userLogout())}
           text={"Logout"}
-        /> */}
+        />
       </View>
     </Layout>
   );
@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
   username: {
     fontFamily: "Outfit_600SemiBold",
     fontSize: 20,
-    fontWeight: 800,
     letterSpacing: 0.5,
   },
   profilePictureContainer: {
@@ -195,7 +194,9 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "80%",
   },
-  logoutBtn: {},
+  logoutBtn: {
+    marginTop: 50,
+  },
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

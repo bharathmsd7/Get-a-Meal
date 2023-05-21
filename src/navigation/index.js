@@ -28,14 +28,14 @@ import LoginSplash from "../screens/LoginSplash";
 
 export const navigationRef = createNavigationContainerRef();
 
-export function navigate(name, params) {
+export function navigate(name) {
   if (navigationRef.isReady()) {
-    navigationRef.navigate(name, params);
+    navigationRef.navigate(name);
   }
 }
-export function navigateAndReplace(name, params) {
+export function navigateAndReplace(name) {
   if (navigationRef.isReady()) {
-    navigationRef.dispatch(name, params);
+    navigationRef.dispatch(name);
   }
 }
 // Stack Navigator

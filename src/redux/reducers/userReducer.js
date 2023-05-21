@@ -29,8 +29,9 @@ export const userReducer = createSlice({
       state.isError = true;
     },
     userLogoutSuccess: (state) => {
-      deleteLocalStorage("user");
       state.data = {};
+      state.isError = false;
+      deleteLocalStorage("user");
       navigateToScreen("Splash");
     },
     userSessionSuccess: (state, action) => {

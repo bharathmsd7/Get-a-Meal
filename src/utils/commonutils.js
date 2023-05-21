@@ -3,7 +3,9 @@ import { navigate, navigateAndReplace } from "../navigation";
 
 export function navigateToScreen(screen) {
   try {
-    navigate(screen);
+    setTimeout(function () {
+      navigate(screen);
+    }, 100);
   } catch (e) {
     console.error(e);
   }
