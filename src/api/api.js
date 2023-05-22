@@ -45,6 +45,10 @@ let api = {
     return api.provider().account.deleteSessions();
   },
 
+  updatePreferences: (preferences) => {
+    return api.provider().account.updatePreferences(preferences);
+  },
+
   createDocument: (databaseId, collectionId, data, permissions) => {
     return api
       .provider()

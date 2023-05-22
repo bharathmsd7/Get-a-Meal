@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 16,
     paddingLeft: 24,
+    color: "#808080",
     fontFamily: "Outfit_600SemiBold",
   },
 });

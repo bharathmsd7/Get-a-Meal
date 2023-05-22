@@ -2,6 +2,15 @@
 
 import api from "../api/api";
 
+export async function signup(email, password, name) {
+  try {
+    const result = await api.createAccount(email, password, name);
+    return result;
+  } catch (err) {
+    console.log("ERROR", err);
+    return "error";
+  }
+}
 export async function login(email, password) {
   try {
     const result = await api.createSession(email, password);

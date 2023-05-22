@@ -13,9 +13,11 @@ import {
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  createNavigationContainerRef,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createNavigationContainerRef } from "@react-navigation/native";
 
 import HomeScreen from "../screens/HomeScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
@@ -25,6 +27,7 @@ import AddScreen from "../screens/AddScreen";
 import ChatScreen from "../screens/ChatScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LoginSplash from "../screens/LoginSplash";
+import SignupScreen from "../screens/SignupScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -92,13 +95,13 @@ function Tabs({ navigation }) {
   return (
     <CurvedBottomBarExpo.Navigator
       screenOptions={{ headerShown: false }}
-      type='DOWN'
+      type="DOWN"
       style={styles.bottomBar}
       shadowStyle={styles.shawdow}
       height={65}
       circleWidth={50}
-      bgColor='white'
-      initialRouteName='Home'
+      bgColor="white"
+      initialRouteName="Home"
       borderTopLeftRight
       renderCircle={({ selectedTab, navigate }) => (
         <Animated.View style={styles.btnCircleUp}>
@@ -106,31 +109,31 @@ function Tabs({ navigation }) {
             style={styles.button}
             onPress={() => navigation.navigate("Add")}
           >
-            <Ionicons name={"md-add"} color='white' size={35} />
+            <Ionicons name={"md-add"} color="white" size={35} />
           </TouchableOpacity>
         </Animated.View>
       )}
       tabBar={renderTabBar}
     >
       <CurvedBottomBarExpo.Screen
-        name='Home'
-        position='LEFT'
+        name="Home"
+        position="LEFT"
         component={() => <HomeScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name='Favourite'
-        position='LEFT'
+        name="Favourite"
+        position="LEFT"
         component={() => <FavouriteScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name='Chat'
+        name="Chat"
         component={() => <ChatScreen />}
-        position='RIGHT'
+        position="RIGHT"
       />
       <CurvedBottomBarExpo.Screen
-        name='Profile'
+        name="Profile"
         component={() => <ProfileScreen />}
-        position='RIGHT'
+        position="RIGHT"
       />
     </CurvedBottomBarExpo.Navigator>
   );
@@ -140,11 +143,12 @@ function AppRouter({ onReady }) {
   return (
     <NavigationContainer onReady={onReady} ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='Splash' component={LoginSplash} />
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Tabs' component={Tabs} />
-        <Stack.Screen name='Search' component={SearchScreen} />
-        <Stack.Screen name='Add' component={AddScreen} />
+        <Stack.Screen name="Splash" component={LoginSplash} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Add" component={AddScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

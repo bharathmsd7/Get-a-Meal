@@ -1,7 +1,7 @@
 /** @format */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { login, getSession, logout } from "../../hooks";
+import { login, getSession, logout, signup } from "../../hooks";
 import {
   deleteLocalStorage,
   navigateToScreen,
@@ -19,6 +19,13 @@ export const userReducer = createSlice({
   name: "user",
   initialState,
   reducers: {
+    userSignupSuccess: (state, action) => {
+      state.isError = false;
+    },
+    userSignupFailure: (state) => {
+      deleteLocalStorage("user");
+      state.isError = true;
+    },
     userLoginSuccess: (state, action) => {
       setLocalStorage("user", action.payload);
       state.data = action.payload;
@@ -50,9 +57,23 @@ export const {
   userSessionSuccess,
 } = userReducer.actions;
 
+export const userSignup =
+  ({ email, password, name }) =>
+  async (dispatch) => {
+    console.log(email, password, name);
+    const response = await signup(email, password, name);
+    console.log("Signup RESPONSE ", response);
+    if (response && response !== "error") {
+      dispatch(userLogin({ email, password }));
+    } else {
+      dispatch(userLoginFailure());
+    }
+  };
+
 export const userLogin =
   ({ email, password }) =>
   async (dispatch) => {
+    console.log(email, password);
     const response = await login(email, password);
     console.log("RESPONES ", response);
     if (response && response !== "error") {
@@ -67,12 +88,12 @@ export const userSession = () => async (dispatch) => {
   if (user && user.expire) {
     const expired = compareDateTime(user.expire);
     if (expired) {
-      console.warn("User not logged out");
+      console.warn("User session expired");
     } else {
       dispatch(userSessionSuccess(user));
     }
   } else {
-    console.warn("User not logged out");
+    console.warn("User Session is not available");
   }
 };
 

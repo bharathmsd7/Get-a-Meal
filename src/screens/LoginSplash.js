@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   StyleSheet,
   Text,
@@ -37,13 +39,13 @@ const LoginSplash = ({ navigation }) => {
       >
         <Image
           style={styles.logo}
-          resizeMode='contain'
+          resizeMode="contain"
           source={require("../../assets/icon.png")}
         />
         <Text style={styles.title}>Get a Meal</Text>
         <ActivityIndicator
           style={styles.spinner}
-          size='large'
+          size="large"
           color={"#EE4544"}
         />
         <View style={styles.footerContainer}>

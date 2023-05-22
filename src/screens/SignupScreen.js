@@ -7,22 +7,23 @@ import InputText from "../components/InputText";
 import Button from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, userLogin } from "../redux/reducers/userReducer";
+import { selectUser, userSignup } from "../redux/reducers/userReducer";
 
-const LoginScreen = ({ navigation }) => {
+const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [name, setName] = useState();
   const [disabled, setDisabled] = useState(true);
 
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
   const handleLogin = () => {
-    dispatch(userLogin({ email, password }));
+    dispatch(userSignup({ email, password, name }));
   };
 
   useEffect(() => {
-    console.log("LoginScreen User: " + JSON.stringify(user));
+    console.log("SignupScreen User: " + JSON.stringify(user));
     if (user.data !== {} && user.data.$id && !user.isError) {
       navigation.replace("Tabs");
     }
@@ -30,11 +31,13 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (email && password)
-      reg.test(email) && password.length >= 8
+    if (email && password && name) {
+      let _email = email.toLowerCase();
+      reg.test(_email) && password.length >= 8 && name.length > 0
         ? setDisabled(false)
         : setDisabled(true);
-  }, [email, password]);
+    }
+  }, [email, password, name]);
 
   return (
     <Layout>
@@ -44,9 +47,15 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View style={styles.body}>
         <InputText
+          value={name}
+          onChangeText={(text) => setName(text)}
+          placeholder="Cool Name"
+          title="Enter Your Name"
+        />
+        <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="alex@google.com"
+          placeholder="test@test.com"
           title="Enter email address"
         />
         <InputText
@@ -83,23 +92,23 @@ const LoginScreen = ({ navigation }) => {
         style={{
           position: "absolute",
           flexDirection: "row",
-          top: 8,
+          top: 16,
           right: 16,
           gap: 4,
           backgroundColor: "#f5f5f5",
           padding: 8,
           borderRadius: 8,
         }}
-        onPress={() => navigation.navigate("Signup")}
+        onPress={() => navigation.navigate("Login")}
       >
-        <Text style={[styles.socialText, { color: "#EE4544" }]}>SignUp</Text>
+        <Text style={[styles.socialText, { color: "#EE4544" }]}>Login</Text>
         <Ionicons name={"arrow-forward"} size={20} color={"#EE4544"} />
       </Pressable>
     </Layout>
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 const styles = StyleSheet.create({
   socialText: {
