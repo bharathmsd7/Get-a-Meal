@@ -25,7 +25,7 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("SignupScreen User: " + JSON.stringify(user));
     if (user.data !== {} && user.data.$id && !user.isError) {
-      navigation.replace("Tabs");
+      navigation.replace("Setup");
     }
   }, [user]);
 

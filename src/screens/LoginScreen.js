@@ -24,7 +24,13 @@ const LoginScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("LoginScreen User: " + JSON.stringify(user));
     if (user.data !== {} && user.data.$id && !user.isError) {
-      navigation.replace("Tabs");
+      console.log("LOGIN SCREEN TO WHICH", user.data.prefs);
+      if (user.data.prefs == undefined) {
+        navigation.replace("Setup");
+      } else {
+        console.log("ELSE PART");
+        navigation.replace("Tabs");
+      }
     }
   }, [user]);
 

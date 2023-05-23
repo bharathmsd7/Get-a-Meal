@@ -46,7 +46,8 @@ let api = {
   },
 
   updatePreferences: (preferences) => {
-    return api.provider().account.updatePreferences(preferences);
+    console.log("API :", preferences);
+    return api.provider().account.updatePrefs(preferences);
   },
 
   createDocument: (databaseId, collectionId, data, permissions) => {

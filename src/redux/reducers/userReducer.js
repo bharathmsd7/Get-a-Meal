@@ -1,7 +1,7 @@
 /** @format */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { login, getSession, logout, signup } from "../../hooks";
+import { login, logout, signup, updatePreferences } from "../../hooks";
 import {
   deleteLocalStorage,
   navigateToScreen,
@@ -9,6 +9,7 @@ import {
   compareDateTime,
   getLocalStorage,
 } from "../../utils/commonutils";
+import { Alert } from "react-native";
 
 const initialState = {
   data: {},
@@ -45,6 +46,12 @@ export const userReducer = createSlice({
       state.data = action.payload;
       state.isError = false;
     },
+    updatePreferencesSuccess: (state, action) => {
+      state.data.prefs = action.payload.prefs;
+      state.isError = false;
+      setLocalStorage("user", state.data);
+      navigateToScreen("Tabs");
+    },
   },
 });
 
@@ -55,7 +62,20 @@ export const {
   userLoginFailure,
   userLogoutSuccess,
   userSessionSuccess,
+  updatePreferencesSuccess,
 } = userReducer.actions;
+
+export const updateUserLocation = (location) => async (dispatch) => {
+  console.log(location);
+  if (location) {
+    const response = await updatePreferences(location);
+    if (response && response !== "error") {
+      dispatch(updatePreferencesSuccess(response));
+    } else {
+      Alert.alert("Error");
+    }
+  }
+};
 
 export const userSignup =
   ({ email, password, name }) =>

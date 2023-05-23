@@ -28,6 +28,7 @@ import ChatScreen from "../screens/ChatScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LoginSplash from "../screens/LoginSplash";
 import SignupScreen from "../screens/SignupScreen";
+import SetupScreen from "../screens/SetupScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -146,6 +147,7 @@ function AppRouter({ onReady }) {
         <Stack.Screen name="Splash" component={LoginSplash} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Setup" component={SetupScreen} />
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Add" component={AddScreen} />

@@ -22,10 +22,11 @@ const SearchBar = ({ onPress }) => {
           maxLength={15}
           style={{
             fontSize: 16,
+            fontFamily: "Outfit_500Medium",
             color: "gray",
             width: "100%",
           }}
-          placeholder='Search'
+          placeholder="Search"
         />
       </View>
       <Pressable onPress={onPress} style={styles.filter}>

@@ -39,6 +39,17 @@ export async function getSession(sessionId) {
     return "error";
   }
 }
+export async function updatePreferences(preferences) {
+  console.log("PREFE", JSON.stringify(preferences));
+  try {
+    const result = await api.updatePreferences(preferences);
+    console.log("UPDATE PREFERENCES RESPONSE ", JSON.stringify(result));
+    return result;
+  } catch (err) {
+    console.log("ERROR", err);
+    return "error";
+  }
+}
 export async function logout() {
   try {
     const result = await api.deleteCurrentSession();

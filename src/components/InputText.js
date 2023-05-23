@@ -9,6 +9,8 @@ const InputText = ({
   value,
   onChangeText,
   password = false,
+  disabled = false,
+  editable = true,
 }) => {
   const [isFocused, setIsFocused] = useState("lightgrey");
 
@@ -16,6 +18,8 @@ const InputText = ({
     <View style={styles.container}>
       <Text style={styles.label}>{title}</Text>
       <TextInput
+        editable={editable}
+        disabled={disabled}
         onFocus={() => {
           setIsFocused("black");
         }}
