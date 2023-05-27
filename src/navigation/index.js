@@ -31,12 +31,13 @@ import SignupScreen from "../screens/SignupScreen";
 import SetupScreen from "../screens/SetupScreen";
 import ExploreScreen from "../screens/ExploreScreen";
 import { COLORS } from "../constants/colors";
+import DetailScreen from "../screens/DetailScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
-export function navigate(name) {
+export function navigate(name, data) {
   if (navigationRef.isReady()) {
-    navigationRef.navigate(name);
+    navigationRef.navigate(name, data);
   }
 }
 export function navigateAndReplace(name) {
@@ -56,7 +57,7 @@ function Tabs({ navigation }) {
         icon = "ios-home-outline";
         break;
       case "Favourite":
-        icon = "heart-outline";
+        icon = "bookmark-outline";
         break;
       case "Chat":
         icon = "chatbox-outline";
@@ -154,6 +155,7 @@ function AppRouter({ onReady }) {
         <Stack.Screen name='Search' component={SearchScreen} />
         <Stack.Screen name='Add' component={AddScreen} />
         <Stack.Screen name='Explore' component={ExploreScreen} />
+        <Stack.Screen name='Details' component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

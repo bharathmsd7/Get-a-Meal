@@ -17,11 +17,10 @@ export function timeAgo(time) {
   }
 }
 
-export function navigateToScreen(screen) {
-  console.log("navigateToScreen", screen);
+export function navigateToScreen(screen, data) {
   try {
     setTimeout(function () {
-      navigate(screen);
+      navigate(screen, data);
     }, 100);
   } catch (e) {
     console.error(e);

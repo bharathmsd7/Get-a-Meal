@@ -43,10 +43,16 @@ const Category = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.name}
-        contentContainerStyle={{ gap: 16 }}
+        ItemSeparatorComponent={<View style={{ width: 16 }} />}
         data={data}
-        renderItem={({ item }) => (
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
+        renderItem={({ item, index }) => (
+          <View
+            style={[
+              index === 0 && styles.firstItem,
+              index === data.length - 1 && styles.lastItem,
+              { justifyContent: "center", alignItems: "center" },
+            ]}
+          >
             <View
               style={{
                 width: 90,
@@ -84,8 +90,12 @@ export default Category;
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: -16,
     paddingVertical: 16,
-    marginHorizontal: 16,
+  },
+  firstItem: {
+    marginLeft: 16,
+  },
+  lastItem: {
+    marginRight: 16,
   },
 });

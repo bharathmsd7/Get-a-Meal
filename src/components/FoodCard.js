@@ -1,11 +1,11 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Symbol from "./Symbol";
 import { COLORS } from "../constants/colors";
-import { timeAgo } from "../utils/commonutils";
+import { navigateToScreen, timeAgo } from "../utils/commonutils";
 import { userStore } from "../store/userStore";
 
 const FoodCard = ({ item }) => {
@@ -13,7 +13,10 @@ const FoodCard = ({ item }) => {
   const favourite = item.usersEnquired.includes(user?.email);
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => navigateToScreen("Details", item)}
+    >
       {favourite && (
         <View style={styles.favourite}>
           <Ionicons name={"bookmark"} size={26} color={COLORS.primary} />
@@ -59,34 +62,35 @@ const FoodCard = ({ item }) => {
             </Text>
           </View>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              <Ionicons name={"location-outline"} size={18} color={"gray"} />
-              <Text style={{ color: "gray", fontFamily: "Outfit_400Regular" }}>
-                {" "}
-                {item.location}
-              </Text>
-            </View>
-            <Symbol veg={item.veg} />
-          </View>
-          <View
             style={{
               flexDirection: "row",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "gray", fontFamily: "Outfit_400Regular" }}>
-              {" "}
-              Posted {timeAgo(item.createdAt)}
-            </Text>
-
+            <View style={{}}>
+              <View style={{ flexDirection: "row" }}>
+                <Ionicons name={"location-outline"} size={18} color={"gray"} />
+                <Text
+                  style={{ color: "gray", fontFamily: "Outfit_400Regular" }}
+                >
+                  {" "}
+                  {item.location}
+                </Text>
+              </View>
+              <Text
+                style={{ color: COLORS.grey, fontFamily: "Outfit_400Regular" }}
+              >
+                {" "}
+                Posted {timeAgo(item.createdAt)}
+              </Text>
+            </View>
+            <Symbol veg={item.veg} />
             {/* <ContactButton /> */}
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
