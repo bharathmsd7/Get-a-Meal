@@ -3,22 +3,25 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 
-const Symbol = ({ veg }) => {
+const Symbol = ({ veg, style }) => {
   return (
     <View
-      style={{
-        borderWidth: 1,
-        height: 18,
-        width: 18,
-        borderColor: veg ? "green" : "red",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={[
+        style,
+        {
+          borderWidth: 1,
+          height: 20,
+          width: 20,
+          borderColor: veg ? "green" : "red",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      ]}
     >
       <View
         style={{
-          height: 10,
-          width: 10,
+          height: 12,
+          width: 12,
           backgroundColor: veg ? "green" : "red",
           borderRadius: 14,
         }}

@@ -29,6 +29,7 @@ import LoginScreen from "../screens/LoginScreen";
 import LoginSplash from "../screens/LoginSplash";
 import SignupScreen from "../screens/SignupScreen";
 import SetupScreen from "../screens/SetupScreen";
+import ExploreScreen from "../screens/ExploreScreen";
 import { COLORS } from "../constants/colors";
 
 export const navigationRef = createNavigationContainerRef();
@@ -152,6 +153,7 @@ function AppRouter({ onReady }) {
         <Stack.Screen name='Tabs' component={Tabs} />
         <Stack.Screen name='Search' component={SearchScreen} />
         <Stack.Screen name='Add' component={AddScreen} />
+        <Stack.Screen name='Explore' component={ExploreScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

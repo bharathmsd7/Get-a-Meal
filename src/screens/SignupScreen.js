@@ -77,7 +77,7 @@ const SignupScreen = ({ navigation }) => {
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text='Login'
+          text='Sign Up'
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>

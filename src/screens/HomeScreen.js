@@ -1,6 +1,12 @@
 /** @format */
 
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import Layout from "../components/Layout";
@@ -15,11 +21,13 @@ import Avatar from "../components/Avatar";
 import { userStore } from "../store/userStore";
 import { donationStore } from "../store/donationStore";
 import { COLORS } from "../constants/colors";
+import { navigateToScreen } from "../utils/commonutils";
 
 const HomeScreen = () => {
   const user = userStore((state) => state.data);
   const donations = donationStore((state) => state.data);
   const getDonations = donationStore((state) => state.getAllDonations);
+  const isLoading = donationStore((state) => state.isLoading);
 
   useEffect(() => {
     function getDonationData() {
@@ -75,7 +83,12 @@ const HomeScreen = () => {
       <SearchBar onPress={() => this._panel.show()} />
       <Category />
       <Divider />
-      <ExploreSection data={donations} />
+
+      <ExploreSection
+        data={donations}
+        onPress={() => navigateToScreen("Explore")}
+        isLoading={isLoading}
+      />
 
       <SlidingUpPanel snappingPoints={[50]} ref={(c) => (this._panel = c)}>
         <View style={styles.container}>

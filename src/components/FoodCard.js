@@ -4,15 +4,24 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Symbol from "./Symbol";
-import ContactButton from "./ContactButton";
 import { COLORS } from "../constants/colors";
 import { timeAgo } from "../utils/commonutils";
+import { userStore } from "../store/userStore";
 
 const FoodCard = ({ item }) => {
+  const user = userStore((state) => state.data);
+  const favourite = item.usersEnquired.includes(user?.email);
+
   return (
     <View style={styles.container}>
+      {favourite && (
+        <View style={styles.favourite}>
+          <Ionicons name={"bookmark"} size={26} color={COLORS.primary} />
+        </View>
+      )}
+
       <View style={{ flexDirection: "row" }}>
-        <View style={{ width: 90, height: 90, borderRadius: 16 }}>
+        <View style={{ width: 95, height: 95, borderRadius: 16 }}>
           <Image
             source={{ uri: item.url }}
             style={{
@@ -49,12 +58,14 @@ const FoodCard = ({ item }) => {
               {item.description}
             </Text>
           </View>
-          <View style={{ flexDirection: "row", gap: 16 }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
             <View style={{ flexDirection: "row" }}>
               <Ionicons name={"location-outline"} size={18} color={"gray"} />
               <Text style={{ color: "gray", fontFamily: "Outfit_400Regular" }}>
                 {" "}
-                {item.location}{" "}
+                {item.location}
               </Text>
             </View>
             <Symbol veg={item.veg} />
@@ -62,11 +73,10 @@ const FoodCard = ({ item }) => {
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
               alignItems: "center",
             }}
           >
-            <ContactButton />
             <Text style={{ color: "gray", fontFamily: "Outfit_400Regular" }}>
               {" "}
               Posted {timeAgo(item.createdAt)}
@@ -90,5 +100,10 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
     backgroundColor: COLORS.white,
     marginBottom: 16,
+  },
+  favourite: {
+    position: "absolute",
+    top: -8,
+    right: 20,
   },
 });
