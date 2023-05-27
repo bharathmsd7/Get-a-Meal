@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import Layout from "../components/Layout";
-import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import Category from "../components/Category";
 import Divider from "../components/Divider";
@@ -12,12 +11,9 @@ import ExploreSection from "../components/ExploreSection";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import Slider from "@react-native-community/slider";
 import Button from "../components/Button";
-import { useSelector } from "react-redux";
-import { selectUser } from "../redux/reducers/userReducer";
 import Avatar from "../components/Avatar";
 
 const HomeScreen = () => {
-  const user = useSelector(selectUser);
   const FoodType = useMemo(
     () => [
       {

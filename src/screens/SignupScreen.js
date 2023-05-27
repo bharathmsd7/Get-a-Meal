@@ -6,8 +6,8 @@ import Layout from "../components/Layout";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, userSignup } from "../redux/reducers/userReducer";
+import { userStore } from "../store/userStore";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -15,16 +15,18 @@ const SignupScreen = ({ navigation }) => {
   const [name, setName] = useState();
   const [disabled, setDisabled] = useState(true);
 
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const user = userStore((state) => state.data);
+  const isLoading = userStore((state) => state.isLoading);
+  const isError = userStore((state) => state.isError);
+  const userSignup = userStore((state) => state.userSignup);
 
   const handleLogin = () => {
-    dispatch(userSignup({ email, password, name }));
+    userSignup(email, password, name);
   };
 
   useEffect(() => {
     console.log("SignupScreen User: " + JSON.stringify(user));
-    if (user.data !== {} && user.data.$id && !user.isError) {
+    if (user !== {} && user.$id && !user.isError) {
       navigation.replace("Setup");
     }
   }, [user]);
@@ -45,31 +47,36 @@ const SignupScreen = ({ navigation }) => {
         <Image style={styles.logo} source={require("../../assets/icon.png")} />
         <Text style={styles.title}>Get a Meal</Text>
       </View>
+      <Spinner
+        visible={isLoading}
+        textContent={"Loading..."}
+        textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
+      />
       <View style={styles.body}>
         <InputText
           value={name}
           onChangeText={(text) => setName(text)}
-          placeholder="Cool Name"
-          title="Enter Your Name"
+          placeholder='Cool Name'
+          title='Enter Your Name'
         />
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="test@test.com"
-          title="Enter email address"
+          placeholder='test@test.com'
+          title='Enter email address'
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder="Hint min. 8 characters"
-          title="Enter password"
+          placeholder='Hint min. 8 characters'
+          title='Enter password'
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text="Login"
+          text='Login'
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>

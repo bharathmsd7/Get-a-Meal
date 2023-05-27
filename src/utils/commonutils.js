@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { navigate, navigateAndReplace } from "../navigation";
 
 export function navigateToScreen(screen) {
+  console.log("navigateToScreen", screen);
   try {
     setTimeout(function () {
       navigate(screen);

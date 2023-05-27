@@ -1,8 +1,6 @@
 /** @format */
 import { useCallback } from "react";
 import AppRouter from "./src/navigation";
-import { Provider } from "react-redux";
-import { store } from "./src/redux/store";
 import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
@@ -34,9 +32,5 @@ export default function App() {
     return null;
   }
 
-  return (
-    <Provider store={store}>
-      <AppRouter onReady={onLayoutRootView} />
-    </Provider>
-  );
+  return <AppRouter onReady={onLayoutRootView} />;
 }

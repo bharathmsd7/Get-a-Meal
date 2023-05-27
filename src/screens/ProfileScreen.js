@@ -3,19 +3,22 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Button from "../components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../redux/reducers/userReducer";
 import Layout from "../components/Layout";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { userStore } from "../store/userStore";
 
-import { selectUser } from "../redux/reducers/userReducer";
+const ProfileScreen = ({ navigation }) => {
+  const user = userStore((state) => state.data);
+  const isLoading = userStore((state) => state.isLoading);
+  const isError = userStore((state) => state.isError);
+  const userLogout = userStore((state) => state.userLogout);
 
-const ProfileScreen = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const handleLogout = () => {
+    userLogout();
+  };
   return (
     <Layout>
       <View style={styles.headerContainer}>
@@ -157,7 +160,7 @@ const ProfileScreen = () => {
         </View>
         <Button
           style={styles.logoutBtn}
-          onPress={() => dispatch(userLogout())}
+          onPress={handleLogout}
           text={"Logout"}
         />
       </View>

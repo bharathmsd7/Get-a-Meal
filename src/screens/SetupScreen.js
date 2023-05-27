@@ -5,21 +5,24 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
-import { updateUserLocation } from "../redux/reducers/userReducer";
 import * as Location from "expo-location";
+import { userStore } from "../store/userStore";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const SetupScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [address, setAddress] = useState(null);
-
-  const dispatch = useDispatch();
+  const updateUserLocation = userStore((state) => state.updateUserLocation);
+  const isLoading = userStore((state) => state.isLoading);
+  const isError = userStore((state) => state.isError);
 
   const handleUpdateLocation = () => {
     console.log(address);
-
-    dispatch(updateUserLocation(address[0]));
+    updateUserLocation(address[0]);
+    if (isLoading == false && isError == false) {
+      navigation.navigate("Tabs");
+    }
   };
   useEffect(() => {
     (async () => {
@@ -47,6 +50,11 @@ const SetupScreen = ({ navigation }) => {
 
   return (
     <Layout>
+      <Spinner
+        visible={isLoading}
+        textContent={"Loading..."}
+        textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
+      />
       <View style={styles.header}>
         <Image
           style={styles.logo}
@@ -60,22 +68,22 @@ const SetupScreen = ({ navigation }) => {
           <>
             <InputText
               editable={false}
-              title="City"
+              title='City'
               value={address?.[0]?.city}
             />
             <InputText
               editable={false}
-              title="District"
+              title='District'
               value={address?.[0]?.district}
             />
             <InputText
               editable={false}
-              title="Pincode"
+              title='Pincode'
               value={address?.[0]?.postalCode}
             />
             <Button
               style={{ marginTop: 16 }}
-              text="Update Location"
+              text='Update Location'
               onPress={handleUpdateLocation}
             />
           </>
