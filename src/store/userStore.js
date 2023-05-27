@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { login, signup, logout, updatePreferences } from "../hooks";
+import { login, signup, logout, updatePreferences, getAccount } from "../hooks";
 import {
   setLocalStorage,
   getLocalStorage,
@@ -18,8 +18,12 @@ export const userStore = create((set, get) => ({
       set({ isLoading: true });
       const response = await login(email, password);
       if (response !== "error") {
-        setLocalStorage("@user", response);
-        set({ isLoading: false, data: response });
+        const accountResponse = await getAccount();
+        if (accountResponse !== "error") {
+          let userResponse = { ...accountResponse, ...response };
+          setLocalStorage("@user", userResponse);
+          set({ isLoading: false, data: userResponse });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -79,7 +83,6 @@ export const userStore = create((set, get) => ({
       console.log("GET USER SESSION");
       set({ isLoading: true });
       const user = await getLocalStorage("@user");
-
       if (user != null && user.expire) {
         const expired = compareDateTime(user.expire);
         if (expired) {
@@ -87,7 +90,6 @@ export const userStore = create((set, get) => ({
           navigateToScreen("Login");
         } else {
           set({ isLoading: false, data: user });
-          console.log(user);
           navigateToScreen("Tabs");
         }
       } else {

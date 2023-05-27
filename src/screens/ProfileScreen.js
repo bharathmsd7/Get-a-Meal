@@ -9,6 +9,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { userStore } from "../store/userStore";
+import { COLORS } from "../constants/colors";
 
 const ProfileScreen = ({ navigation }) => {
   const user = userStore((state) => state.data);
@@ -23,7 +24,7 @@ const ProfileScreen = ({ navigation }) => {
     <Layout>
       <View style={styles.headerContainer}>
         <Ionicons name={"arrow-back"} size={28} color={"gray"} />
-        <Text style={styles.title}>ProfileScreen</Text>
+        <Text style={styles.title}>Profile</Text>
         <Feather name={"edit"} size={24} color={"gray"} />
       </View>
       <View style={styles.bodyContainer}>
@@ -38,9 +39,9 @@ const ProfileScreen = ({ navigation }) => {
             <Text
               style={[styles.username, { fontFamily: "Outfit_600SemiBold" }]}
             >
-              Bharath
+              {user?.name}
             </Text>
-            <Text style={styles.email}>{user.data?.providerUid}</Text>
+            <Text style={styles.email}>{user.email}</Text>
           </View>
         </View>
 
@@ -62,7 +63,7 @@ const ProfileScreen = ({ navigation }) => {
                 Username
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                Bharath
+                {user?.name}
               </Text>
               <View
                 style={{
@@ -88,7 +89,7 @@ const ProfileScreen = ({ navigation }) => {
                 Email
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                bharath@test.com
+                {user?.email}
               </Text>
               <View
                 style={{
@@ -118,7 +119,7 @@ const ProfileScreen = ({ navigation }) => {
                 Phone
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                +91 880 717 0158
+                {user?.phone ? user.phone : "Not Available"}
               </Text>
               <View
                 style={{
@@ -138,14 +139,13 @@ const ProfileScreen = ({ navigation }) => {
                 style={{
                   fontSize: 14,
                   fontFamily: "Outfit_600SemiBold",
-
                   color: "gray",
                 }}
               >
                 Location
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                Pondicherry
+                {user?.prefs?.city}
               </Text>
               <View
                 style={{
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "#000000",
+    color: COLORS.black,
     fontFamily: "Outfit_600SemiBold",
   },
   bodyContainer: {

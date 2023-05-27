@@ -8,7 +8,23 @@ import Layout from "../components/Layout";
 const ChatScreen = () => {
   return (
     <Layout>
-      <Header title="Chat" />
+      <Header title='Chat' />
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "Outfit_400Regular",
+            fontSize: 20,
+            paddingVertical: 50,
+          }}
+        >
+          Comming soon...
+        </Text>
+      </View>
     </Layout>
   );
 };

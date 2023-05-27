@@ -3,9 +3,10 @@
 import { StyleSheet, TextInput, View, Pressable } from "react-native";
 import React, { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { COLORS } from "../constants/colors";
 
 const SearchBar = ({ onPress }) => {
-  const [isFocused, setIsFocused] = useState("#F5F4F4");
+  const [isFocused, setIsFocused] = useState(COLORS.divider);
 
   return (
     <View style={styles.container}>
@@ -13,12 +14,12 @@ const SearchBar = ({ onPress }) => {
         <Ionicons name={"search"} size={24} color={"gray"} />
         <TextInput
           onFocus={() => {
-            setIsFocused("black");
+            setIsFocused(COLORS.black);
           }}
           onBlur={() => {
-            setIsFocused("#F5F4F4");
+            setIsFocused(COLORS.divider);
           }}
-          cursorColor={"#000000"}
+          cursorColor={COLORS.black}
           maxLength={15}
           style={{
             fontSize: 16,
@@ -26,7 +27,7 @@ const SearchBar = ({ onPress }) => {
             color: "gray",
             width: "100%",
           }}
-          placeholder="Search"
+          placeholder='Search'
         />
       </View>
       <Pressable onPress={onPress} style={styles.filter}>
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     borderWidth: 1,
-    borderColor: "#F5F4F4",
-    backgroundColor: "#F5F4F4",
+    borderColor: COLORS.divider,
+    backgroundColor: COLORS.divider,
     flex: 1,
     padding: 16,
     flexDirection: "row",

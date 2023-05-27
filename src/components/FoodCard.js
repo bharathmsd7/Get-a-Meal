@@ -5,6 +5,8 @@ import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Symbol from "./Symbol";
 import ContactButton from "./ContactButton";
+import { COLORS } from "../constants/colors";
+import { timeAgo } from "../utils/commonutils";
 
 const FoodCard = ({ item }) => {
   return (
@@ -26,6 +28,7 @@ const FoodCard = ({ item }) => {
             paddingLeft: 16,
             justifyContent: "space-around",
             flex: 1,
+            gap: 8,
           }}
         >
           <View>
@@ -46,6 +49,16 @@ const FoodCard = ({ item }) => {
               {item.description}
             </Text>
           </View>
+          <View style={{ flexDirection: "row", gap: 16 }}>
+            <View style={{ flexDirection: "row" }}>
+              <Ionicons name={"location-outline"} size={18} color={"gray"} />
+              <Text style={{ color: "gray", fontFamily: "Outfit_400Regular" }}>
+                {" "}
+                {item.location}{" "}
+              </Text>
+            </View>
+            <Symbol veg={item.veg} />
+          </View>
           <View
             style={{
               flexDirection: "row",
@@ -53,21 +66,13 @@ const FoodCard = ({ item }) => {
               alignItems: "center",
             }}
           >
-            <View style={{ flexDirection: "row" }}>
-              <Ionicons name={"location-outline"} size={18} color={"gray"} />
-              <View
-                style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
-              >
-                <Text
-                  style={{ color: "gray", fontFamily: "Outfit_600SemiBold" }}
-                >
-                  {" "}
-                  {item.distance} km
-                </Text>
-                <Symbol veg={item.veg} />
-              </View>
-            </View>
             <ContactButton />
+            <Text style={{ color: "gray", fontFamily: "Outfit_400Regular" }}>
+              {" "}
+              Posted {timeAgo(item.createdAt)}
+            </Text>
+
+            {/* <ContactButton /> */}
           </View>
         </View>
       </View>
@@ -81,9 +86,9 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
     borderWidth: 1,
-    padding: 12,
+    padding: 16,
     borderColor: "lightgray",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     marginBottom: 16,
   },
 });

@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { userStore } from "../store/userStore";
 import Spinner from "react-native-loading-spinner-overlay";
+import { COLORS } from "../constants/colors";
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -102,14 +103,16 @@ const SignupScreen = ({ navigation }) => {
           top: 16,
           right: 16,
           gap: 4,
-          backgroundColor: "#f5f5f5",
+          backgroundColor: COLORS.background,
           padding: 8,
           borderRadius: 8,
         }}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={[styles.socialText, { color: "#EE4544" }]}>Login</Text>
-        <Ionicons name={"arrow-forward"} size={20} color={"#EE4544"} />
+        <Text style={[styles.socialText, { color: COLORS.primary }]}>
+          Login
+        </Text>
+        <Ionicons name={"arrow-forward"} size={20} color={COLORS.primary} />
       </Pressable>
     </Layout>
   );

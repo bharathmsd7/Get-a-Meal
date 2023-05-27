@@ -2,6 +2,7 @@
 
 import { FlatList, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
+import { COLORS } from "../constants/colors";
 
 const data = [
   {
@@ -52,7 +53,7 @@ const Category = () => {
                 height: 90,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "#F5F4F4",
+                backgroundColor: COLORS.background,
                 borderRadius: 50,
                 borderWidth: 0.7,
                 borderColor: "lightgray",

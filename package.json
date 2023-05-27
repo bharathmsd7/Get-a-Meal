@@ -23,6 +23,7 @@
     "expo-location": "~15.1.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "javascript-time-ago": "^2.5.9",
     "react": "18.2.0",
     "react-native": "0.71.7",
     "react-native-curved-bottom-bar": "^3.2.6",

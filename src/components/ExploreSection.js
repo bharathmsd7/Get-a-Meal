@@ -43,7 +43,7 @@ const data = [
   },
 ];
 
-const ExploreSection = () => {
+const ExploreSection = ({ data }) => {
   const HeaderComponent = (
     <View
       style={{

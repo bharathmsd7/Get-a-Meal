@@ -12,8 +12,22 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import Slider from "@react-native-community/slider";
 import Button from "../components/Button";
 import Avatar from "../components/Avatar";
+import { userStore } from "../store/userStore";
+import { donationStore } from "../store/donationStore";
+import { COLORS } from "../constants/colors";
 
 const HomeScreen = () => {
+  const user = userStore((state) => state.data);
+  const donations = donationStore((state) => state.data);
+  const getDonations = donationStore((state) => state.getAllDonations);
+
+  useEffect(() => {
+    function getDonationData() {
+      getDonations();
+    }
+    getDonationData();
+  }, []);
+
   const FoodType = useMemo(
     () => [
       {
@@ -54,14 +68,14 @@ const HomeScreen = () => {
   return (
     <Layout>
       <View style={styles.headerContainer}>
-        <Text style={styles.title}>Bonjour Bharath 👋🏻</Text>
+        <Text style={styles.title}>Bonjour {user?.name} 👋🏻</Text>
         <Avatar />
       </View>
 
       <SearchBar onPress={() => this._panel.show()} />
       <Category />
       <Divider />
-      <ExploreSection />
+      <ExploreSection data={donations} />
 
       <SlidingUpPanel snappingPoints={[50]} ref={(c) => (this._panel = c)}>
         <View style={styles.container}>
@@ -96,11 +110,11 @@ const HomeScreen = () => {
           </View>
           <Slider
             step={0.1}
-            thumbTintColor='#EE4544'
+            thumbTintColor={COLORS.primary}
             style={{ width: "100%", height: 30 }}
             minimumValue={0}
             maximumValue={1}
-            minimumTrackTintColor='#EE4544'
+            minimumTrackTintColor={COLORS.primary}
             // maximumTrackTintColor="#000000"
           />
           <Text
@@ -114,7 +128,7 @@ const HomeScreen = () => {
             Food type
           </Text>
           <RadioGroup
-            color='#EE4544'
+            color={COLORS.primary}
             radioButtons={FoodType}
             onPress={setSelectedFoodType}
             layout='row'
@@ -132,7 +146,7 @@ const HomeScreen = () => {
             Sort by
           </Text>
           <RadioGroup
-            color='#EE4544'
+            color={COLORS.primary}
             radioButtons={Sortby}
             onPress={setSelectedSortby}
             layout='row'
@@ -182,6 +196,6 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Outfit_600SemiBold",
     fontSize: 24,
-    color: "#000000",
+    color: COLORS.black,
   },
 });

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { userStore } from "../store/userStore";
+import { COLORS } from "../constants/colors";
 
 const LoginSplash = ({ navigation }) => {
   const userSession = userStore((state) => state.userSession);
@@ -37,7 +38,7 @@ const LoginSplash = ({ navigation }) => {
         <ActivityIndicator
           style={styles.spinner}
           size='large'
-          color={"#EE4544"}
+          color={COLORS.primary}
         />
         <View style={styles.footerContainer}>
           <Text style={styles.footer}>Made with 💖</Text>
