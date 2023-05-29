@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   StyleSheet,
   Image,
@@ -6,24 +8,102 @@ import {
   StatusBar,
   Text,
   ScrollView,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { COLORS } from "../constants/colors";
 import Symbol from "../components/Symbol";
 import Button from "../components/Button";
-import FavouriteButton from "../components/FavouriteButton";
 import { userStore } from "../store/userStore";
+import { donationStore } from "../store/donationStore";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 const { width, height } = Dimensions.get("window");
 const DetailScreen = ({ route }) => {
-  const data = route.params;
+  let data = donationStore((state) => state.data);
+  data = data?.filter((item) => item?.$id == route.params.$id)[0];
+
   const user = userStore((state) => state.data);
-  const favourite = data.usersEnquired.includes(user?.email);
+  const getDonations = donationStore((state) => state.getAllDonations);
+  const updateFavourite = donationStore((state) => state.updateFavourite);
+  const isLoading = donationStore((state) => state.isLoading);
+
+  const date = data?.createdAt.split("T")[0];
+  const time = data?.createdAt.split("T")[1].split(".")[0];
+
+  const favourite = data?.usersEnquired.includes(user?.email);
+  function getDonationData() {
+    getDonations();
+  }
+
+  const handleFavourite = () => {
+    try {
+      if (favourite) {
+        const usersList = {
+          usersEnquired: data?.usersEnquired.filter(
+            (item) => item !== user.email
+          ),
+        };
+        updateFavourite(data?.$id, usersList);
+        if (isLoading == false) {
+          getDonationData();
+        }
+      } else {
+        const usersList = {
+          usersEnquired: [...data.usersEnquired, user.email],
+        };
+        updateFavourite(data?.$id, usersList);
+        if (isLoading == false) {
+          getDonationData();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <ScrollView style={styles.container}>
         <StatusBar backgroundColor={"#FF573300"} translucent />
+        <View
+          style={{
+            position: "absolute",
+            top: 40,
+            left: 16,
+            zIndex: 10,
+            borderRadius: 5,
+            height: 40,
+            width: 40,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(200, 200, 200, 0.5)",
+          }}
+        >
+          <AntDesign name={"arrowleft"} size={25} color={COLORS.white} />
+        </View>
+        <Pressable
+          style={{
+            position: "absolute",
+            top: 40,
+            right: 16,
+            zIndex: 10,
+            borderRadius: 5,
+            height: 40,
+            width: 40,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(225, 225, 225, 0.5)",
+          }}
+          onPress={handleFavourite}
+        >
+          <Ionicons
+            name={favourite ? "bookmark" : "bookmark-outline"}
+            size={25}
+            color={favourite ? COLORS.primary : COLORS.white}
+          />
+        </Pressable>
         <View style={styles.imageContainer}>
           <Image
             style={{
@@ -32,7 +112,7 @@ const DetailScreen = ({ route }) => {
               borderBottomRightRadius: 20,
               borderBottomLeftRadius: 20,
             }}
-            source={{ uri: data.url }}
+            source={{ uri: data?.url }}
           ></Image>
         </View>
         <View style={styles.bodyContainer}>
@@ -45,16 +125,16 @@ const DetailScreen = ({ route }) => {
           >
             <View style={styles.categoryTextContainer}>
               <Text style={styles.categoryText}>
-                {data.category.toUpperCase()}
+                {data?.category.toUpperCase()}
               </Text>
             </View>
-            <Symbol veg={data.veg} />
+            <Symbol veg={data?.veg} />
           </View>
           <Text numberOfLines={1} style={styles.titleText}>
-            {data.title}
+            {data?.title}
           </Text>
           <Text numberOfLines={5} style={styles.descText}>
-            {data.description}
+            {data?.description}
           </Text>
           <View
             style={{
@@ -68,7 +148,7 @@ const DetailScreen = ({ route }) => {
               color={COLORS.primary}
               style={{ marginTop: 8, marginRight: 4 }}
             />
-            <Text style={styles.locationText}>{data.location}</Text>
+            <Text style={styles.locationText}>{data?.location}</Text>
           </View>
 
           <View
@@ -81,7 +161,7 @@ const DetailScreen = ({ route }) => {
           >
             <View>
               <Text style={styles.donatedBy}>Donated By</Text>
-              <Text style={styles.name}>{data.createdBy}</Text>
+              <Text style={styles.name}>{data?.createdBy}</Text>
             </View>
             <View
               style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
@@ -97,7 +177,9 @@ const DetailScreen = ({ route }) => {
             }}
           >
             <Text style={styles.donatedBy}>Created At</Text>
-            <Text style={styles.name}>{data.createdAt}</Text>
+            <Text style={styles.name}>
+              {date} {time}
+            </Text>
           </View>
           <View
             style={{
@@ -106,14 +188,13 @@ const DetailScreen = ({ route }) => {
           >
             <Text style={styles.donatedBy}>Expires By</Text>
             <Text style={styles.name}>
-              {data.expires ? data.expires : "Not Available"}
+              {data?.expires ? data?.expires : "Not Available"}
             </Text>
           </View>
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
-        <Button style={{ flex: 1 }} text='Contact' />
-        <FavouriteButton favourite={favourite} />
+        <Button style={{ flex: 1 }} text="Contact" />
       </View>
     </>
   );

@@ -10,7 +10,7 @@ import { userStore } from "../store/userStore";
 
 const FoodCard = ({ item }) => {
   const user = userStore((state) => state.data);
-  const favourite = item.usersEnquired.includes(user?.email);
+  const favourite = item?.usersEnquired?.includes(user?.email);
 
   return (
     <Pressable
@@ -26,7 +26,7 @@ const FoodCard = ({ item }) => {
       <View style={{ flexDirection: "row" }}>
         <View style={{ width: 95, height: 95, borderRadius: 16 }}>
           <Image
-            source={{ uri: item.url }}
+            source={{ uri: item?.url }}
             style={{
               width: "100%",
               height: "100%",
@@ -48,7 +48,7 @@ const FoodCard = ({ item }) => {
               numberOfLines={1}
               style={{ fontSize: 18, fontFamily: "Outfit_600SemiBold" }}
             >
-              {item.title}
+              {item?.title}
             </Text>
             <Text
               numberOfLines={1}
@@ -58,7 +58,7 @@ const FoodCard = ({ item }) => {
                 color: "gray",
               }}
             >
-              {item.description}
+              {item?.description}
             </Text>
           </View>
           <View
@@ -75,17 +75,17 @@ const FoodCard = ({ item }) => {
                   style={{ color: "gray", fontFamily: "Outfit_400Regular" }}
                 >
                   {" "}
-                  {item.location}
+                  {item?.location}
                 </Text>
               </View>
               <Text
                 style={{ color: COLORS.grey, fontFamily: "Outfit_400Regular" }}
               >
                 {" "}
-                Posted {timeAgo(item.createdAt)}
+                Posted {timeAgo(item?.createdAt)}
               </Text>
             </View>
-            <Symbol veg={item.veg} />
+            <Symbol veg={item?.veg} />
             {/* <ContactButton /> */}
           </View>
         </View>

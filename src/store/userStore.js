@@ -1,3 +1,5 @@
+/** @format */
+
 import { create } from "zustand";
 import { login, signup, logout, updatePreferences, getAccount } from "../hooks";
 import {
@@ -21,7 +23,7 @@ export const userStore = create((set, get) => ({
         const accountResponse = await getAccount();
         if (accountResponse !== "error") {
           let userResponse = { ...accountResponse, ...response };
-          setLocalStorage("@user", userResponse);
+          await setLocalStorage("@user", userResponse);
           set({ isLoading: false, data: userResponse });
         }
       }
@@ -50,7 +52,7 @@ export const userStore = create((set, get) => ({
       const response = await logout();
       if (response !== "error") {
         set({ isLoading: false, data: {} });
-        deleteLocalStorage("@user");
+        await deleteLocalStorage("@user");
         navigateToScreen("Login");
       } else {
         console.log("Logout failed");
@@ -68,7 +70,7 @@ export const userStore = create((set, get) => ({
         if (response !== "error") {
           let userData = get().data;
           userData.prefs = location;
-          setLocalStorage("@user", userData);
+          await setLocalStorage("@user", userData);
           set({ isLoading: false, data: userData });
         } else {
           set({ isLoading: false, isError: true });

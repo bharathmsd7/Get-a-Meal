@@ -83,3 +83,17 @@ export async function fetchOne(databaseId, collectionId, documentId) {
     console.log("ERROR", err);
   }
 }
+
+export async function updateFavourite(documentId, data) {
+  try {
+    const result = await api.updateDocument(
+      Server.databaseID,
+      Server.collectionID,
+      documentId,
+      data
+    );
+    return result;
+  } catch (err) {
+    console.log("ERROR", err);
+  }
+}
