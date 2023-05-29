@@ -10,27 +10,19 @@ import {
   View,
 } from "react-native";
 import React, { useEffect } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, userSession } from "../redux/reducers/userReducer";
+import { userStore } from "../store/userStore";
+import { COLORS } from "../constants/colors";
 
 const LoginSplash = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const userSession = userStore((state) => state.userSession);
+
   useEffect(() => {
     function getUserSession() {
-      dispatch(userSession());
+      userSession();
     }
     getUserSession();
   }, []);
 
-  useEffect(() => {
-    if (user && !user.isError && user.data.expire) {
-      navigation.replace("Tabs");
-    } else {
-      navigation.replace("Login");
-    }
-  }, [user]);
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -39,14 +31,14 @@ const LoginSplash = ({ navigation }) => {
       >
         <Image
           style={styles.logo}
-          resizeMode="contain"
+          resizeMode='contain'
           source={require("../../assets/icon.png")}
         />
         <Text style={styles.title}>Get a Meal</Text>
         <ActivityIndicator
           style={styles.spinner}
-          size="large"
-          color={"#EE4544"}
+          size='large'
+          color={COLORS.primary}
         />
         <View style={styles.footerContainer}>
           <Text style={styles.footer}>Made with 💖</Text>

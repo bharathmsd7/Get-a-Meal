@@ -3,24 +3,28 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import Button from "../components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../redux/reducers/userReducer";
 import Layout from "../components/Layout";
 import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { userStore } from "../store/userStore";
+import { COLORS } from "../constants/colors";
 
-import { selectUser } from "../redux/reducers/userReducer";
+const ProfileScreen = ({ navigation }) => {
+  const user = userStore((state) => state.data);
+  const isLoading = userStore((state) => state.isLoading);
+  const isError = userStore((state) => state.isError);
+  const userLogout = userStore((state) => state.userLogout);
 
-const ProfileScreen = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const handleLogout = () => {
+    userLogout();
+  };
   return (
     <Layout>
       <View style={styles.headerContainer}>
         <Ionicons name={"arrow-back"} size={28} color={"gray"} />
-        <Text style={styles.title}>ProfileScreen</Text>
+        <Text style={styles.title}>Profile</Text>
         <Feather name={"edit"} size={24} color={"gray"} />
       </View>
       <View style={styles.bodyContainer}>
@@ -35,9 +39,9 @@ const ProfileScreen = () => {
             <Text
               style={[styles.username, { fontFamily: "Outfit_600SemiBold" }]}
             >
-              Bharath
+              {user?.name}
             </Text>
-            <Text style={styles.email}>{user.data?.providerUid}</Text>
+            <Text style={styles.email}>{user.email}</Text>
           </View>
         </View>
 
@@ -59,7 +63,7 @@ const ProfileScreen = () => {
                 Username
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                Bharath
+                {user?.name}
               </Text>
               <View
                 style={{
@@ -85,7 +89,7 @@ const ProfileScreen = () => {
                 Email
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                bharath@test.com
+                {user?.email}
               </Text>
               <View
                 style={{
@@ -115,7 +119,7 @@ const ProfileScreen = () => {
                 Phone
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                +91 880 717 0158
+                {user?.phone ? user.phone : "Not Available"}
               </Text>
               <View
                 style={{
@@ -135,14 +139,13 @@ const ProfileScreen = () => {
                 style={{
                   fontSize: 14,
                   fontFamily: "Outfit_600SemiBold",
-
                   color: "gray",
                 }}
               >
                 Location
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                Pondicherry
+                {user?.prefs?.city}
               </Text>
               <View
                 style={{
@@ -157,7 +160,7 @@ const ProfileScreen = () => {
         </View>
         <Button
           style={styles.logoutBtn}
-          onPress={() => dispatch(userLogout())}
+          onPress={handleLogout}
           text={"Logout"}
         />
       </View>
@@ -206,7 +209,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "#000000",
+    color: COLORS.black,
     fontFamily: "Outfit_600SemiBold",
   },
   bodyContainer: {

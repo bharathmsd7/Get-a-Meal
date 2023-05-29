@@ -6,33 +6,39 @@ import Layout from "../components/Layout";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, userLogin } from "../redux/reducers/userReducer";
+import { userStore } from "../store/userStore";
+import Spinner from "react-native-loading-spinner-overlay";
+import { COLORS } from "../constants/colors";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [disabled, setDisabled] = useState(true);
 
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const user = userStore((state) => state.data);
+  const isLoading = userStore((state) => state.isLoading);
+  const isError = userStore((state) => state.isError);
+  const userLogin = userStore((state) => state.userLogin);
 
   const handleLogin = () => {
-    dispatch(userLogin({ email, password }));
+    userLogin(email, password);
+    if (isLoading == false && isError == false) {
+      navigation.replace("Tabs");
+    }
   };
 
-  useEffect(() => {
-    console.log("LoginScreen User: " + JSON.stringify(user));
-    if (user.data !== {} && user.data.$id && !user.isError) {
-      console.log("LOGIN SCREEN TO WHICH", user.data.prefs);
-      if (user.data.prefs == undefined) {
-        navigation.replace("Setup");
-      } else {
-        console.log("ELSE PART");
-        navigation.replace("Tabs");
-      }
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("LoginScreen User: " + JSON.stringify(user));
+  //   if (user !== {} && user.$id && !user.isError) {
+  //     console.log("LOGIN SCREEN TO WHICH", user.prefs);
+  //     if (user.prefs == undefined) {
+  //       navigation.replace("Setup");
+  //     } else {
+  //       console.log("ELSE PART");
+  //       navigation.replace("Tabs");
+  //     }
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -44,6 +50,11 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <Layout>
+      <Spinner
+        visible={isLoading}
+        textContent={"Loading..."}
+        textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
+      />
       <View style={styles.header}>
         <Image style={styles.logo} source={require("../../assets/icon.png")} />
         <Text style={styles.title}>Get a Meal</Text>
@@ -52,21 +63,21 @@ const LoginScreen = ({ navigation }) => {
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="alex@google.com"
-          title="Enter email address"
+          placeholder='alex@google.com'
+          title='Enter email address'
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder="Hint min. 8 characters"
-          title="Enter password"
+          placeholder='Hint min. 8 characters'
+          title='Enter password'
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text="Login"
+          text='Login'
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>
@@ -92,14 +103,16 @@ const LoginScreen = ({ navigation }) => {
           top: 8,
           right: 16,
           gap: 4,
-          backgroundColor: "#f5f5f5",
+          backgroundColor: COLORS.background,
           padding: 8,
           borderRadius: 8,
         }}
         onPress={() => navigation.navigate("Signup")}
       >
-        <Text style={[styles.socialText, { color: "#EE4544" }]}>SignUp</Text>
-        <Ionicons name={"arrow-forward"} size={20} color={"#EE4544"} />
+        <Text style={[styles.socialText, { color: COLORS.primary }]}>
+          SignUp
+        </Text>
+        <Ionicons name={"arrow-forward"} size={20} color={COLORS.primary} />
       </Pressable>
     </Layout>
   );

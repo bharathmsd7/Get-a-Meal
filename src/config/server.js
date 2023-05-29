@@ -3,6 +3,6 @@
 export const Server = {
   endpoint: "https://cloud.appwrite.io/v1",
   project: "getamealnow",
-  collectionID: "test",
-  databaseID: "test-db",
+  collectionID: "646f6a82d1d1346729fb",
+  databaseID: "646f6a6df2093a706b66",
 };

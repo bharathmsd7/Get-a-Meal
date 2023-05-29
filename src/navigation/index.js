@@ -29,12 +29,15 @@ import LoginScreen from "../screens/LoginScreen";
 import LoginSplash from "../screens/LoginSplash";
 import SignupScreen from "../screens/SignupScreen";
 import SetupScreen from "../screens/SetupScreen";
+import ExploreScreen from "../screens/ExploreScreen";
+import { COLORS } from "../constants/colors";
+import DetailScreen from "../screens/DetailScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
-export function navigate(name) {
+export function navigate(name, data) {
   if (navigationRef.isReady()) {
-    navigationRef.navigate(name);
+    navigationRef.navigate(name, data);
   }
 }
 export function navigateAndReplace(name) {
@@ -54,7 +57,7 @@ function Tabs({ navigation }) {
         icon = "ios-home-outline";
         break;
       case "Favourite":
-        icon = "heart-outline";
+        icon = "bookmark-outline";
         break;
       case "Chat":
         icon = "chatbox-outline";
@@ -69,11 +72,11 @@ function Tabs({ navigation }) {
         <Ionicons
           name={icon}
           size={28}
-          color={routeName === selectedTab ? "#EE4544" : "gray"}
+          color={routeName === selectedTab ? COLORS.primary : "gray"}
         />
         <Text
           style={{
-            color: routeName === selectedTab ? "#EE4544" : "gray",
+            color: routeName === selectedTab ? COLORS.primary : "gray",
             fontFamily: "Outfit_600SemiBold",
           }}
         >
@@ -96,13 +99,13 @@ function Tabs({ navigation }) {
   return (
     <CurvedBottomBarExpo.Navigator
       screenOptions={{ headerShown: false }}
-      type="DOWN"
+      type='DOWN'
       style={styles.bottomBar}
       shadowStyle={styles.shawdow}
       height={65}
       circleWidth={50}
-      bgColor="white"
-      initialRouteName="Home"
+      bgColor='white'
+      initialRouteName='Home'
       borderTopLeftRight
       renderCircle={({ selectedTab, navigate }) => (
         <Animated.View style={styles.btnCircleUp}>
@@ -110,31 +113,31 @@ function Tabs({ navigation }) {
             style={styles.button}
             onPress={() => navigation.navigate("Add")}
           >
-            <Ionicons name={"md-add"} color="white" size={35} />
+            <Ionicons name={"md-add"} color='white' size={35} />
           </TouchableOpacity>
         </Animated.View>
       )}
       tabBar={renderTabBar}
     >
       <CurvedBottomBarExpo.Screen
-        name="Home"
-        position="LEFT"
+        name='Home'
+        position='LEFT'
         component={() => <HomeScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name="Favourite"
-        position="LEFT"
+        name='Favourite'
+        position='LEFT'
         component={() => <FavouriteScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name="Chat"
+        name='Chat'
         component={() => <ChatScreen />}
-        position="RIGHT"
+        position='RIGHT'
       />
       <CurvedBottomBarExpo.Screen
-        name="Profile"
+        name='Profile'
         component={() => <ProfileScreen />}
-        position="RIGHT"
+        position='RIGHT'
       />
     </CurvedBottomBarExpo.Navigator>
   );
@@ -144,13 +147,15 @@ function AppRouter({ onReady }) {
   return (
     <NavigationContainer onReady={onReady} ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Splash" component={LoginSplash} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="Setup" component={SetupScreen} />
-        <Stack.Screen name="Tabs" component={Tabs} />
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="Add" component={AddScreen} />
+        <Stack.Screen name='Splash' component={LoginSplash} />
+        <Stack.Screen name='Login' component={LoginScreen} />
+        <Stack.Screen name='Signup' component={SignupScreen} />
+        <Stack.Screen name='Setup' component={SetupScreen} />
+        <Stack.Screen name='Tabs' component={Tabs} />
+        <Stack.Screen name='Search' component={SearchScreen} />
+        <Stack.Screen name='Add' component={AddScreen} />
+        <Stack.Screen name='Explore' component={ExploreScreen} />
+        <Stack.Screen name='Details' component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -192,7 +197,7 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#EE4544",
+    backgroundColor: COLORS.primary,
     bottom: 30,
     shadowColor: "#000",
     shadowOffset: {

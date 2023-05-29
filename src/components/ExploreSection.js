@@ -1,10 +1,16 @@
 /** @format */
 
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import FoodCard from "./FoodCard";
-
+import { COLORS } from "../constants/colors";
 const data = [
   {
     title: "Food available for 5 people",
@@ -43,32 +49,7 @@ const data = [
   },
 ];
 
-const ExploreSection = () => {
-  const HeaderComponent = (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: 16,
-      }}
-    >
-      <View style={{ gap: 4 }}>
-        <Text style={styles.title}>Explore Food</Text>
-        <Text style={styles.desc}>Find your nearest donor</Text>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text style={{ color: "gray" }}>See All</Text>
-        <Ionicons name={"chevron-forward"} size={18} color={"gray"} />
-      </View>
-    </View>
-  );
+const ExploreSection = ({ data, onPress, isLoading }) => {
   return (
     <View style={styles.container}>
       <View
@@ -83,20 +64,31 @@ const ExploreSection = () => {
           <Text style={styles.title}>Explore Food</Text>
           <Text style={styles.desc}>Find your nearest donor</Text>
         </View>
-        <View
+        <Pressable
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
           }}
+          onPress={onPress}
         >
           <Text style={{ color: "gray", fontFamily: "Outfit_600SemiBold" }}>
             See All
           </Text>
           <Ionicons name={"chevron-forward"} size={18} color={"gray"} />
-        </View>
+        </Pressable>
       </View>
-      {data.map((item, index) => (
+      {isLoading && (
+        <View style={{ justifyContent: "center" }}>
+          <ActivityIndicator size='large' color={COLORS.primary} />
+          <Text
+            style={{ fontFamily: "Outfit_400Regular", textAlign: "center" }}
+          >
+            Loading...
+          </Text>
+        </View>
+      )}
+      {data?.slice(0, 4).map((item, index) => (
         <FoodCard item={item} key={index} />
       ))}
     </View>
@@ -109,6 +101,7 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 8,
     marginHorizontal: 16,
+    marginBottom: 70,
   },
   title: {
     fontFamily: "Outfit_700Bold",

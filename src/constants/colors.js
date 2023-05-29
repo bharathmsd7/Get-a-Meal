@@ -10,4 +10,6 @@ export const COLORS = {
   dark: "#0c0c0c",
   background: "#f5f5f5",
   green: "#00C853",
+  divider: "#F5F4F4",
+  inputText: "#808080",
 };

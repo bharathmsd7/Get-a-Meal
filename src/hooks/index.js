@@ -1,6 +1,7 @@
 /** @format */
 
 import api from "../api/api";
+import { Server } from "../config/Server";
 
 export async function signup(email, password, name) {
   try {
@@ -23,9 +24,10 @@ export async function login(email, password) {
 export async function getAccount() {
   try {
     const result = await api.getAccount();
-    console.log("RESPONSE ", JSON.stringify(result));
+    return result;
   } catch (err) {
     console.log("ERROR", err);
+    return "error";
   }
 }
 
@@ -61,10 +63,13 @@ export async function logout() {
   }
 }
 
-export async function fetchAll(databaseId, collectionId) {
+export async function fetchDonations() {
   try {
-    const result = await api.listDocuments(databaseId, collectionId);
-    console.log("RESPONSE ", JSON.stringify(result));
+    const result = await api.listDocuments(
+      Server.databaseID,
+      Server.collectionID
+    );
+    return result?.documents;
   } catch (err) {
     console.log("ERROR", err);
   }

@@ -1,16 +1,30 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Symbol from "./Symbol";
-import ContactButton from "./ContactButton";
+import { COLORS } from "../constants/colors";
+import { navigateToScreen, timeAgo } from "../utils/commonutils";
+import { userStore } from "../store/userStore";
 
 const FoodCard = ({ item }) => {
+  const user = userStore((state) => state.data);
+  const favourite = item.usersEnquired.includes(user?.email);
+
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => navigateToScreen("Details", item)}
+    >
+      {favourite && (
+        <View style={styles.favourite}>
+          <Ionicons name={"bookmark"} size={26} color={COLORS.primary} />
+        </View>
+      )}
+
       <View style={{ flexDirection: "row" }}>
-        <View style={{ width: 90, height: 90, borderRadius: 16 }}>
+        <View style={{ width: 95, height: 95, borderRadius: 16 }}>
           <Image
             source={{ uri: item.url }}
             style={{
@@ -26,6 +40,7 @@ const FoodCard = ({ item }) => {
             paddingLeft: 16,
             justifyContent: "space-around",
             flex: 1,
+            gap: 8,
           }}
         >
           <View>
@@ -53,25 +68,29 @@ const FoodCard = ({ item }) => {
               alignItems: "center",
             }}
           >
-            <View style={{ flexDirection: "row" }}>
-              <Ionicons name={"location-outline"} size={18} color={"gray"} />
-              <View
-                style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
-              >
+            <View style={{}}>
+              <View style={{ flexDirection: "row" }}>
+                <Ionicons name={"location-outline"} size={18} color={"gray"} />
                 <Text
-                  style={{ color: "gray", fontFamily: "Outfit_600SemiBold" }}
+                  style={{ color: "gray", fontFamily: "Outfit_400Regular" }}
                 >
                   {" "}
-                  {item.distance} km
+                  {item.location}
                 </Text>
-                <Symbol veg={item.veg} />
               </View>
+              <Text
+                style={{ color: COLORS.grey, fontFamily: "Outfit_400Regular" }}
+              >
+                {" "}
+                Posted {timeAgo(item.createdAt)}
+              </Text>
             </View>
-            <ContactButton />
+            <Symbol veg={item.veg} />
+            {/* <ContactButton /> */}
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -81,9 +100,14 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
     borderWidth: 1,
-    padding: 12,
+    padding: 16,
     borderColor: "lightgray",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     marginBottom: 16,
+  },
+  favourite: {
+    position: "absolute",
+    top: -8,
+    right: 20,
   },
 });

@@ -2,6 +2,7 @@
 
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useState } from "react";
+import { COLORS } from "../constants/colors";
 
 const InputText = ({
   title,
@@ -31,7 +32,7 @@ const InputText = ({
         placeholderTextColor={"lightgrey"}
         placeholder={placeholder}
         maxLength={20}
-        cursorColor={"#000000"}
+        cursorColor={COLORS.black}
         secureTextEntry={password}
         style={[styles.input, { borderColor: isFocused }]}
       />
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 16,
     paddingLeft: 24,
-    color: "#808080",
+    color: COLORS.inputText,
     fontFamily: "Outfit_600SemiBold",
   },
 });

@@ -1,10 +1,26 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { navigate, navigateAndReplace } from "../navigation";
+import { navigate } from "../navigation";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
 
-export function navigateToScreen(screen) {
+TimeAgo.addLocale(en);
+
+export function timeAgo(time) {
+  const timeAgo = new TimeAgo("en-US");
+  try {
+    const temp = time.split("+")[0];
+    const ist = temp + "+05:30";
+    const timer = new Date(ist);
+    return timeAgo.format(timer);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function navigateToScreen(screen, data) {
   try {
     setTimeout(function () {
-      navigate(screen);
+      navigate(screen, data);
     }, 100);
   } catch (e) {
     console.error(e);

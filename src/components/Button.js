@@ -1,13 +1,18 @@
 /** @format */
 
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import React from "react";
+import { COLORS } from "../constants/colors";
 
 const Button = ({ text, onPress, style, disabled = false }) => {
   if (disabled) {
     return (
       <Pressable
-        style={[styles.container, style, { backgroundColor: "#f5f5f5" }]}
+        style={[
+          styles.container,
+          style,
+          { backgroundColor: COLORS.background },
+        ]}
       >
         <Text style={[styles.text, { color: "lightgrey" }]}>{text}</Text>
       </Pressable>
@@ -24,7 +29,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#EE4544",
+    backgroundColor: COLORS.primary,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    color: "#FFFFFF",
+    color: COLORS.white,
     fontSize: 18,
     fontFamily: "Outfit_700Bold",
   },
