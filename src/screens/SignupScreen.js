@@ -28,7 +28,7 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("SignupScreen User: " + JSON.stringify(user));
     if (user !== {} && user.$id && !user.isError) {
-      navigation.replace("Setup");
+      navigation.replace("Tabs");
     }
   }, [user]);
 
@@ -57,27 +57,27 @@ const SignupScreen = ({ navigation }) => {
         <InputText
           value={name}
           onChangeText={(text) => setName(text)}
-          placeholder='Cool Name'
-          title='Enter Your Name'
+          placeholder="Cool Name"
+          title="Enter Your Name"
         />
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder='test@test.com'
-          title='Enter email address'
+          placeholder="test@test.com"
+          title="Enter email address"
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder='Hint min. 8 characters'
-          title='Enter password'
+          placeholder="Hint min. 8 characters"
+          title="Enter password"
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text='Sign Up'
+          text="Sign Up"
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>

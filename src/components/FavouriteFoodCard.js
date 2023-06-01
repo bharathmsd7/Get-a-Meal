@@ -1,11 +1,11 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Symbol from "./Symbol";
 import { COLORS } from "../constants/colors";
-import { timeAgo } from "../utils/commonutils";
+import { navigateToScreen, timeAgo } from "../utils/commonutils";
 import { userStore } from "../store/userStore";
 
 const FavouriteFoodCard = ({ item }) => {
@@ -14,7 +14,10 @@ const FavouriteFoodCard = ({ item }) => {
 
   if (favourite) {
     return (
-      <View style={styles.container}>
+      <Pressable
+        style={styles.container}
+        onPress={() => navigateToScreen("Details", item)}
+      >
         <View style={styles.favourite}>
           <Ionicons name={"bookmark"} size={26} color={COLORS.primary} />
         </View>
@@ -87,7 +90,7 @@ const FavouriteFoodCard = ({ item }) => {
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
     );
   } else {
     return null;

@@ -1,12 +1,15 @@
 /** @format */
 
 import { create } from "zustand";
-import { fetchDonations, updateFavourite } from "../hooks";
+import { fetchDonations, updateFavourite, uploadImage } from "../hooks";
+import api from "../api/api";
 
 export const donationStore = create((set, get) => ({
   data: [],
   isLoading: false,
   isError: false,
+  uploadedImage: null,
+  isUploading: false,
 
   getAllDonations: async () => {
     try {
@@ -39,5 +42,26 @@ export const donationStore = create((set, get) => ({
       console.log(error);
       set({ isLoading: false, isError: true });
     }
+  },
+
+  createDonation: async (data) => {
+    try {
+      set({ isUploading: true });
+      const response = await api.uploadImage(data.url);
+      if (response !== "error") {
+        data.url = response;
+        const result = await api.createDocument(data);
+        set({ isUploading: false });
+        return result;
+      }
+    } catch (error) {
+      console.log(error);
+      set({ isUploading: false, isError: true });
+    }
+  },
+  updateUpload: (image) => {
+    try {
+      set({ isUploading: false, uploadedImage: image });
+    } catch (error) {}
   },
 }));

@@ -12,6 +12,7 @@ const InputText = ({
   password = false,
   disabled = false,
   editable = true,
+  maxLength = 35,
 }) => {
   const [isFocused, setIsFocused] = useState("lightgrey");
 
@@ -31,7 +32,7 @@ const InputText = ({
         onChangeText={onChangeText}
         placeholderTextColor={"lightgrey"}
         placeholder={placeholder}
-        maxLength={20}
+        maxLength={maxLength}
         cursorColor={COLORS.black}
         secureTextEntry={password}
         style={[styles.input, { borderColor: isFocused }]}

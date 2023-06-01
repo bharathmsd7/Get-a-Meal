@@ -241,8 +241,8 @@ const styles = StyleSheet.create({
   },
   chat: {
     fontFamily: "Outfit_500Medium",
-    color: COLORS.black,
-    fontSize: 16,
+    color: COLORS.grey,
+    fontSize: 14,
   },
   donatedBy: {
     fontFamily: "Outfit_600SemiBold",
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontFamily: "Outfit_600SemiBold",
     color: COLORS.black,
-    fontSize: 20,
+    fontSize: 18,
   },
   descText: {
     marginTop: 8,

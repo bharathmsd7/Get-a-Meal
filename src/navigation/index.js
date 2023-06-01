@@ -32,6 +32,8 @@ import SetupScreen from "../screens/SetupScreen";
 import ExploreScreen from "../screens/ExploreScreen";
 import { COLORS } from "../constants/colors";
 import DetailScreen from "../screens/DetailScreen";
+import SuccessScreen from "../screens/SuccessScreen";
+import MyDonationsScreen from "../screens/MyDonationsScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -99,13 +101,13 @@ function Tabs({ navigation }) {
   return (
     <CurvedBottomBarExpo.Navigator
       screenOptions={{ headerShown: false }}
-      type='DOWN'
+      type="DOWN"
       style={styles.bottomBar}
       shadowStyle={styles.shawdow}
       height={65}
       circleWidth={50}
-      bgColor='white'
-      initialRouteName='Home'
+      bgColor="white"
+      initialRouteName="Home"
       borderTopLeftRight
       renderCircle={({ selectedTab, navigate }) => (
         <Animated.View style={styles.btnCircleUp}>
@@ -113,31 +115,31 @@ function Tabs({ navigation }) {
             style={styles.button}
             onPress={() => navigation.navigate("Add")}
           >
-            <Ionicons name={"md-add"} color='white' size={35} />
+            <Ionicons name={"md-add"} color="white" size={35} />
           </TouchableOpacity>
         </Animated.View>
       )}
       tabBar={renderTabBar}
     >
       <CurvedBottomBarExpo.Screen
-        name='Home'
-        position='LEFT'
+        name="Home"
+        position="LEFT"
         component={() => <HomeScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name='Favourite'
-        position='LEFT'
+        name="Favourite"
+        position="LEFT"
         component={() => <FavouriteScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name='Chat'
+        name="Chat"
         component={() => <ChatScreen />}
-        position='RIGHT'
+        position="RIGHT"
       />
       <CurvedBottomBarExpo.Screen
-        name='Profile'
+        name="Profile"
         component={() => <ProfileScreen />}
-        position='RIGHT'
+        position="RIGHT"
       />
     </CurvedBottomBarExpo.Navigator>
   );
@@ -147,15 +149,17 @@ function AppRouter({ onReady }) {
   return (
     <NavigationContainer onReady={onReady} ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='Splash' component={LoginSplash} />
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Signup' component={SignupScreen} />
-        <Stack.Screen name='Setup' component={SetupScreen} />
-        <Stack.Screen name='Tabs' component={Tabs} />
-        <Stack.Screen name='Search' component={SearchScreen} />
-        <Stack.Screen name='Add' component={AddScreen} />
-        <Stack.Screen name='Explore' component={ExploreScreen} />
-        <Stack.Screen name='Details' component={DetailScreen} />
+        <Stack.Screen name="Splash" component={LoginSplash} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Setup" component={SetupScreen} />
+        <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Add" component={AddScreen} />
+        <Stack.Screen name="Explore" component={ExploreScreen} />
+        <Stack.Screen name="Details" component={DetailScreen} />
+        <Stack.Screen name="Success" component={SuccessScreen} />
+        <Stack.Screen name="MyDonations" component={MyDonationsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,6 @@
 /** @format */
 
-import { Client as Appwrite, Databases, Account } from "appwrite";
+import { Client as Appwrite, Databases, Account, Storage } from "appwrite";
 import { Server } from "../config/Server";
 
 let api = {
@@ -50,15 +50,14 @@ let api = {
     return api.provider().account.updatePrefs(preferences);
   },
 
-  createDocument: (databaseId, collectionId, data, permissions) => {
+  createDocument: (data) => {
     return api
       .provider()
       .database.createDocument(
-        databaseId,
-        collectionId,
+        Server.databaseID,
+        Server.collectionID,
         "unique()",
-        data,
-        permissions
+        data
       );
   },
 
@@ -82,6 +81,47 @@ let api = {
     return api
       .provider()
       .database.deleteDocument(databaseId, collectionId, documentId);
+  },
+
+  uploadImage: async (image) => {
+    let filename = image.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(image);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    let formData = new FormData();
+    formData.append("fileId", "unique()");
+    formData.append("file", {
+      uri: image,
+      name: filename,
+      type,
+    });
+
+    return fetch(
+      `${Server.endpoint}/v1/storage/buckets/${Server.bucketID}/files/`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "multipart/form-data",
+          "X-Appwrite-Project": Server.project,
+          "x-sdk-version": "appwrite:web:9.0.1",
+          "X-Appwrite-Response-Format": "0.15.0",
+        },
+        body: formData,
+        credentials: "include",
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        let imageURL = `https://cloud.appwrite.io/v1/storage/buckets/${result.bucketId}/files/${result.$id}/view?project=getamealnow&mode=admin`;
+        return imageURL;
+        // console.log("API RESPONSE", JSON.stringify(obj));
+      })
+      .catch((error) => {
+        console.log("API ERROR", JSON.stringify(error));
+        return "error";
+      });
   },
 };
 
