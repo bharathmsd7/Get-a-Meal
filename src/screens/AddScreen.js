@@ -14,6 +14,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { donationStore } from "../store/donationStore";
 import { userStore } from "../store/userStore";
 import Spinner from "react-native-loading-spinner-overlay";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const AddScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
@@ -24,7 +25,9 @@ const AddScreen = ({ navigation }) => {
   const [donatedBy, setDonatedBy] = useState("");
   const [contact, setContact] = useState("");
   const [image, setImage] = useState("");
+  const [expires, setExpires] = useState(new Date());
   const [confirm, setConfirm] = useState(false);
+  const [show, setShow] = useState(false);
 
   const createDonation = donationStore((state) => state.createDonation);
   const isUploading = donationStore((state) => state.isUploading);
@@ -48,6 +51,16 @@ const AddScreen = ({ navigation }) => {
     }
   }, [title, description, veg, category, location, donatedBy, contact, image]);
 
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setExpires(currentDate);
+  };
+
+  const showMode = () => {
+    setShow(true);
+  };
+
   const handleImageUpload = async () => {
     const payload = {
       title,
@@ -62,6 +75,7 @@ const AddScreen = ({ navigation }) => {
       updatedAt: new Date(),
       userId: user.userId,
       completed: false,
+      expires,
     };
     if (payload) {
       const response = await createDonation(payload);
@@ -74,7 +88,7 @@ const AddScreen = ({ navigation }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [4, 4],
       quality: 1,
     });
 
@@ -149,6 +163,35 @@ const AddScreen = ({ navigation }) => {
             selectedId={veg}
             descriptionStyle={{ fontFamily: "Outfit_500Medium" }}
           />
+          <Text
+            style={{
+              marginTop: 8,
+              marginBottom: 8,
+              fontSize: 16,
+              fontFamily: "Outfit_700Bold",
+            }}
+          >
+            Expires on
+          </Text>
+          <Pressable onPress={showMode} style={[styles.input]}>
+            <Text
+              style={{
+                fontSize: 16,
+
+                color: COLORS.inputText,
+                fontFamily: "Outfit_600SemiBold",
+              }}
+            >
+              {expires.toLocaleString().split(",")[0]}
+            </Text>
+          </Pressable>
+          {show && (
+            <DateTimePicker
+              value={expires}
+              mode={"date"}
+              onChange={onDateChange}
+            />
+          )}
           <Text
             style={{
               marginTop: 8,

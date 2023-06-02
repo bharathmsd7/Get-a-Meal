@@ -18,6 +18,7 @@ import {
   createNavigationContainerRef,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import HomeScreen from "../screens/HomeScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
@@ -48,7 +49,7 @@ export function navigateAndReplace(name) {
   }
 }
 // Stack Navigator
-const Stack = createNativeStackNavigator();
+const Stack = createSharedElementStackNavigator();
 
 function Tabs({ navigation }) {
   const _renderIcon = (routeName, selectedTab) => {
@@ -157,7 +158,13 @@ function AppRouter({ onReady }) {
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Add" component={AddScreen} />
         <Stack.Screen name="Explore" component={ExploreScreen} />
-        <Stack.Screen name="Details" component={DetailScreen} />
+        <Stack.Screen
+          name="Details"
+          component={DetailScreen}
+          sharedElements={(route, otherRoute, showing) => {
+            return [`item.${route.params.url}.photo`];
+          }}
+        />
         <Stack.Screen name="Success" component={SuccessScreen} />
         <Stack.Screen name="MyDonations" component={MyDonationsScreen} />
       </Stack.Navigator>

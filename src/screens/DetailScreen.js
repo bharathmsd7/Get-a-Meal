@@ -9,6 +9,7 @@ import {
   Text,
   ScrollView,
   Pressable,
+  Linking,
 } from "react-native";
 import React from "react";
 import { COLORS } from "../constants/colors";
@@ -18,11 +19,16 @@ import { userStore } from "../store/userStore";
 import { donationStore } from "../store/donationStore";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { timeAgo } from "../utils/commonutils";
+import { SharedElement } from "react-navigation-shared-element";
 
 const { width, height } = Dimensions.get("window");
-const DetailScreen = ({ route }) => {
+
+const DetailScreen = (props) => {
   let data = donationStore((state) => state.data);
-  data = data?.filter((item) => item?.$id == route.params.$id)[0];
+  data = data?.filter((item) => item?.$id == props.route.params.$id)[0];
+
+  let item = props.route.params;
 
   const user = userStore((state) => state.data);
   const getDonations = donationStore((state) => state.getAllDonations);
@@ -105,15 +111,17 @@ const DetailScreen = ({ route }) => {
           />
         </Pressable>
         <View style={styles.imageContainer}>
-          <Image
-            style={{
-              height: "100%",
-              width: "100%",
-              borderBottomRightRadius: 20,
-              borderBottomLeftRadius: 20,
-            }}
-            source={{ uri: data?.url }}
-          ></Image>
+          <SharedElement id={`item.${item.url}.photo`}>
+            <Image
+              style={{
+                height: "100%",
+                width: "100%",
+                borderBottomRightRadius: 20,
+                borderBottomLeftRadius: 20,
+              }}
+              source={{ uri: item?.url }}
+            ></Image>
+          </SharedElement>
         </View>
         <View style={styles.bodyContainer}>
           <View
@@ -186,15 +194,19 @@ const DetailScreen = ({ route }) => {
               marginTop: 16,
             }}
           >
-            <Text style={styles.donatedBy}>Expires By</Text>
+            <Text style={styles.donatedBy}>Expires</Text>
             <Text style={styles.name}>
-              {data?.expires ? data?.expires : "Not Available"}
+              {data?.expires ? timeAgo(data?.expires) : "Not Available"}
             </Text>
           </View>
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
-        <Button style={{ flex: 1 }} text="Contact" />
+        <Button
+          onPress={() => Linking.openURL(`tel:${data?.contactNumber}`)}
+          style={{ flex: 1 }}
+          text="Contact"
+        />
       </View>
     </>
   );

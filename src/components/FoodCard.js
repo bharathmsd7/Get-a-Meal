@@ -7,6 +7,7 @@ import Symbol from "./Symbol";
 import { COLORS } from "../constants/colors";
 import { navigateToScreen, timeAgo } from "../utils/commonutils";
 import { userStore } from "../store/userStore";
+import { SharedElement } from "react-navigation-shared-element";
 
 const FoodCard = ({ item }) => {
   const user = userStore((state) => state.data);
@@ -25,15 +26,17 @@ const FoodCard = ({ item }) => {
 
       <View style={{ flexDirection: "row" }}>
         <View style={{ width: 95, height: 95, borderRadius: 16 }}>
-          <Image
-            source={{ uri: item?.url }}
-            style={{
-              width: "100%",
-              height: "100%",
-              overflow: "hidden",
-              borderRadius: 16,
-            }}
-          />
+          <SharedElement id={`item.${item.url}.photo`}>
+            <Image
+              source={{ uri: item?.url }}
+              style={{
+                width: "100%",
+                height: "100%",
+                overflow: "hidden",
+                borderRadius: 16,
+              }}
+            />
+          </SharedElement>
         </View>
         <View
           style={{
