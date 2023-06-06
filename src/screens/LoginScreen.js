@@ -67,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Image style={styles.logo} source={require("../../assets/icon.png")} />
-        <Text style={styles.title}>Get a Meal</Text>
+        <Text style={styles.title}>Share a Meal</Text>
       </View>
       <View style={styles.body}>
         <InputText

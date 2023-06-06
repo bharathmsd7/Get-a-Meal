@@ -34,6 +34,7 @@ import DetailScreen from "../screens/DetailScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import MyDonationsScreen from "../screens/MyDonationsScreen";
 import EditScreen from "../screens/EditScreen";
+import OnboardingScreen from "../screens/OnboardingScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -159,6 +160,7 @@ function AppRouter({ onReady }) {
         <Stack.Screen name="Splash" component={LoginSplash} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         {/* <Stack.Screen name="Setup" component={SetupScreen} /> */}
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Search" component={SearchScreen} />

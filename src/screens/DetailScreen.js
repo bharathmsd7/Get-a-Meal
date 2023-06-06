@@ -38,7 +38,6 @@ const DetailScreen = (props) => {
   const favourite = data?.usersEnquired.includes(user?.email);
 
   const isMyDonation = data?.userId == user?.email;
-  console.log("is My DOnation", isMyDonation);
 
   function getDonationData() {
     getDonations();

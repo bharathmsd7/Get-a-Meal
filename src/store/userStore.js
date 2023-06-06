@@ -84,25 +84,32 @@ export const userStore = create((set, get) => ({
     try {
       console.log("GET USER SESSION");
       set({ isLoading: true });
+      const onboardingDone = await getLocalStorage("@onboardingCompleted");
       const user = await getLocalStorage("@user");
-      if (user != null && user.expire) {
-        const expired = compareDateTime(user.expire);
-        if (expired) {
-          set({ isLoading: false });
-          navigateToScreen("Login");
-        } else {
-          set({ isLoading: false, data: user });
-          navigateToScreen("Tabs");
-        }
+
+      if (onboardingDone === null && user === null) {
+        set({ isLoading: false });
+        navigateToScreen("Onboarding");
       } else {
-        console.log("User session not found");
-        set({ isLoading: false, data: {} });
-        navigateToScreen("Login");
+        if (user != null && user.expire) {
+          const expired = compareDateTime(user.expire);
+          if (expired) {
+            set({ isLoading: false });
+            navigateToScreen("Signup");
+          } else {
+            set({ isLoading: false, data: user });
+            navigateToScreen("Tabs");
+          }
+        } else {
+          console.log("User session not found");
+          set({ isLoading: false, data: {} });
+          navigateToScreen("Signup");
+        }
       }
     } catch (error) {
       console.log("ERROR", error);
       set({ isLoading: false });
-      navigateToScreen("Login");
+      navigateToScreen("Signup");
     }
   },
 }));

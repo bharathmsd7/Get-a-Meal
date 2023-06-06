@@ -1,5 +1,5 @@
 {
-  "name": "get-a-meal",
+  "name": "share-a-meal",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",

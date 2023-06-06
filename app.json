@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "get-a-meal",
-    "slug": "get-a-meal",
+    "name": "Share a meal",
+    "slug": "share-a-meal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.bharath.getameal"
+      "package": "com.bharath.shareameal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,7 +34,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Get A Meal to use your location."
+          "locationAlwaysAndWhenInUsePermission": "Allow Share A Meal to use your location."
         }
       ],
       [
