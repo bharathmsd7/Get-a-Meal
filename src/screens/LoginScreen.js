@@ -1,6 +1,13 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  ToastAndroid,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import InputText from "../components/InputText";
@@ -23,7 +30,10 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
     userLogin(email, password);
     if (isLoading == false && isError == false) {
+      ToastAndroid.show("Successfully Loggedin", ToastAndroid.SHORT);
       navigation.replace("Tabs");
+    } else {
+      ToastAndroid.show("Invalid credentials", ToastAndroid.LONG);
     }
   };
 
@@ -63,21 +73,21 @@ const LoginScreen = ({ navigation }) => {
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder='alex@google.com'
-          title='Enter email address'
+          placeholder="alex@google.com"
+          title="Enter email address"
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder='Hint min. 8 characters'
-          title='Enter password'
+          placeholder="Hint min. 8 characters"
+          title="Enter password"
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text='Login'
+          text="Login"
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>

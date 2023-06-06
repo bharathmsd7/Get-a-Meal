@@ -71,10 +71,15 @@ let api = {
       .database.getDocument(databaseId, collectionId, documentId);
   },
 
-  updateDocument: (databaseId, collectionId, documentId, data) => {
+  updateDocument: (documentId, data) => {
     return api
       .provider()
-      .database.updateDocument(databaseId, collectionId, documentId, data);
+      .database.updateDocument(
+        Server.databaseID,
+        Server.collectionID,
+        documentId,
+        data
+      );
   },
 
   deleteDocument: (databaseId, collectionId, documentId) => {
@@ -97,15 +102,15 @@ let api = {
       name: filename,
       type,
     });
-
+    console.log("FORM DATA :", formData);
     return fetch(
-      `${Server.endpoint}/v1/storage/buckets/${Server.bucketID}/files/`,
+      `${Server.endpoint}/storage/buckets/${Server.bucketID}/files/`,
       {
         method: "POST",
         headers: {
           "content-type": "multipart/form-data",
           "X-Appwrite-Project": Server.project,
-          "x-sdk-version": "appwrite:web:9.0.1",
+          "x-sdk-version": "appwrite:web:11.0.0",
           "X-Appwrite-Response-Format": "0.15.0",
         },
         body: formData,
@@ -115,11 +120,11 @@ let api = {
       .then((response) => response.json())
       .then((result) => {
         let imageURL = `https://cloud.appwrite.io/v1/storage/buckets/${result.bucketId}/files/${result.$id}/view?project=getamealnow&mode=admin`;
+        console.log("API RESPONSE", JSON.stringify(result));
         return imageURL;
-        // console.log("API RESPONSE", JSON.stringify(obj));
       })
       .catch((error) => {
-        console.log("API ERROR", JSON.stringify(error));
+        console.log("API ERROR", error);
         return "error";
       });
   },

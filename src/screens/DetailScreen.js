@@ -20,15 +20,13 @@ import { donationStore } from "../store/donationStore";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { timeAgo } from "../utils/commonutils";
-import { SharedElement } from "react-navigation-shared-element";
 
 const { width, height } = Dimensions.get("window");
 
 const DetailScreen = (props) => {
+  let item = props.route.params;
   let data = donationStore((state) => state.data);
   data = data?.filter((item) => item?.$id == props.route.params.$id)[0];
-
-  let item = props.route.params;
 
   const user = userStore((state) => state.data);
   const getDonations = donationStore((state) => state.getAllDonations);
@@ -37,8 +35,11 @@ const DetailScreen = (props) => {
 
   const date = data?.createdAt.split("T")[0];
   const time = data?.createdAt.split("T")[1].split(".")[0];
-
   const favourite = data?.usersEnquired.includes(user?.email);
+
+  const isMyDonation = data?.userId == user?.email;
+  console.log("is My DOnation", isMyDonation);
+
   function getDonationData() {
     getDonations();
   }
@@ -87,7 +88,9 @@ const DetailScreen = (props) => {
             backgroundColor: "rgba(200, 200, 200, 0.5)",
           }}
         >
-          <AntDesign name={"arrowleft"} size={25} color={COLORS.white} />
+          <Pressable onPress={() => props.navigation.goBack()}>
+            <AntDesign name={"arrowleft"} size={25} color={COLORS.white} />
+          </Pressable>
         </View>
         <Pressable
           style={{
@@ -111,17 +114,15 @@ const DetailScreen = (props) => {
           />
         </Pressable>
         <View style={styles.imageContainer}>
-          <SharedElement id={`item.${item.url}.photo`}>
-            <Image
-              style={{
-                height: "100%",
-                width: "100%",
-                borderBottomRightRadius: 20,
-                borderBottomLeftRadius: 20,
-              }}
-              source={{ uri: item?.url }}
-            ></Image>
-          </SharedElement>
+          <Image
+            style={{
+              height: "100%",
+              width: "100%",
+              borderBottomRightRadius: 20,
+              borderBottomLeftRadius: 20,
+            }}
+            source={{ uri: item?.url }}
+          ></Image>
         </View>
         <View style={styles.bodyContainer}>
           <View
@@ -174,8 +175,8 @@ const DetailScreen = (props) => {
             <View
               style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
             >
-              <Text style={styles.chat}>Start chat</Text>
-              <Ionicons name={"chatbubbles"} size={30} color={COLORS.primary} />
+              {/* <Text style={styles.chat}>Start chat</Text>
+              <Ionicons name={"chatbubbles"} size={30} color={COLORS.primary} /> */}
             </View>
           </View>
 
@@ -202,11 +203,19 @@ const DetailScreen = (props) => {
         </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
-        <Button
-          onPress={() => Linking.openURL(`tel:${data?.contactNumber}`)}
-          style={{ flex: 1 }}
-          text="Contact"
-        />
+        {isMyDonation ? (
+          <Button
+            onPress={() => props.navigation.navigate("Edit", { data: item })}
+            style={{ flex: 1 }}
+            text="Edit Details"
+          />
+        ) : (
+          <Button
+            onPress={() => Linking.openURL(`tel:${data?.contactNumber}`)}
+            style={{ flex: 1 }}
+            text="Contact"
+          />
+        )}
       </View>
     </>
   );

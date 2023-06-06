@@ -1,12 +1,6 @@
 /** @format */
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import Layout from "../components/Layout";
@@ -144,7 +138,7 @@ const HomeScreen = () => {
             color={COLORS.primary}
             radioButtons={FoodType}
             onPress={setSelectedFoodType}
-            layout='row'
+            layout="row"
             selectedId={selectedFoodType}
             descriptionStyle={{ fontFamily: "Outfit_500Medium" }}
           />
@@ -162,13 +156,13 @@ const HomeScreen = () => {
             color={COLORS.primary}
             radioButtons={Sortby}
             onPress={setSelectedSortby}
-            layout='row'
+            layout="row"
             selectedId={selectedSortby}
           />
           <Button
             style={{ marginTop: 26 }}
             onPress={() => this._panel.hide()}
-            text='Show results'
+            text="Show results"
           />
           <Pressable style={{ marginVertical: 8, alignSelf: "center" }}>
             <Text

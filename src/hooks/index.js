@@ -86,12 +86,7 @@ export async function fetchOne(databaseId, collectionId, documentId) {
 
 export async function updateFavourite(documentId, data) {
   try {
-    const result = await api.updateDocument(
-      Server.databaseID,
-      Server.collectionID,
-      documentId,
-      data
-    );
+    const result = await api.updateDocument(documentId, data);
     return result;
   } catch (err) {
     console.log("ERROR", err);

@@ -18,14 +18,12 @@ import {
   createNavigationContainerRef,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import HomeScreen from "../screens/HomeScreen";
 import FavouriteScreen from "../screens/FavouriteScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AddScreen from "../screens/AddScreen";
-import ChatScreen from "../screens/ChatScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LoginSplash from "../screens/LoginSplash";
 import SignupScreen from "../screens/SignupScreen";
@@ -35,6 +33,7 @@ import { COLORS } from "../constants/colors";
 import DetailScreen from "../screens/DetailScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import MyDonationsScreen from "../screens/MyDonationsScreen";
+import EditScreen from "../screens/EditScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -49,29 +48,36 @@ export function navigateAndReplace(name) {
   }
 }
 // Stack Navigator
-const Stack = createSharedElementStackNavigator();
+const Stack = createNativeStackNavigator();
 
 function Tabs({ navigation }) {
   const _renderIcon = (routeName, selectedTab) => {
     let icon = "";
 
-    switch (routeName) {
-      case "Home":
-        icon = "ios-home-outline";
-        break;
-      case "Favourite":
-        icon = "bookmark-outline";
-        break;
-      case "Chat":
-        icon = "chatbox-outline";
-        break;
-      case "Profile":
-        icon = "person-outline";
-        break;
+    if (routeName === "Home" && selectedTab === "Home") {
+      icon = "ios-home";
+    } else if (routeName === "Home" && selectedTab !== "Home") {
+      icon = "ios-home-outline";
+    } else if (routeName === "Favourite" && selectedTab === "Favourite") {
+      icon = "bookmark";
+    } else if (routeName === "Favourite" && selectedTab !== "Favourite") {
+      icon = "bookmark-outline";
+    } else if (routeName === "Donations" && selectedTab === "Donations") {
+      icon = "gift";
+    } else if (routeName === "Donations" && selectedTab !== "Donations") {
+      icon = "gift-outline";
+    } else if (routeName === "Profile" && selectedTab === "Profile") {
+      icon = "person";
+    } else if (routeName === "Profile" && selectedTab !== "Profile") {
+      icon = "person-outline";
     }
-
     return (
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Ionicons
           name={icon}
           size={28}
@@ -133,8 +139,8 @@ function Tabs({ navigation }) {
         component={() => <FavouriteScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name="Chat"
-        component={() => <ChatScreen />}
+        name="Donations"
+        component={() => <MyDonationsScreen />}
         position="RIGHT"
       />
       <CurvedBottomBarExpo.Screen
@@ -153,20 +159,15 @@ function AppRouter({ onReady }) {
         <Stack.Screen name="Splash" component={LoginSplash} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="Setup" component={SetupScreen} />
+        {/* <Stack.Screen name="Setup" component={SetupScreen} /> */}
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Add" component={AddScreen} />
         <Stack.Screen name="Explore" component={ExploreScreen} />
-        <Stack.Screen
-          name="Details"
-          component={DetailScreen}
-          sharedElements={(route, otherRoute, showing) => {
-            return [`item.${route.params.url}.photo`];
-          }}
-        />
+        <Stack.Screen name="Details" component={DetailScreen} />
         <Stack.Screen name="Success" component={SuccessScreen} />
         <Stack.Screen name="MyDonations" component={MyDonationsScreen} />
+        <Stack.Screen name="Edit" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

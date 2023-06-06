@@ -26,6 +26,7 @@ export const donationStore = create((set, get) => ({
   updateFavourite: async (documentId, data) => {
     try {
       set({ isLoading: true });
+      console.log(documentId, data);
       const response = await updateFavourite(documentId, data);
       if (response !== "error") {
         let newData = get().data;
@@ -57,6 +58,36 @@ export const donationStore = create((set, get) => ({
     } catch (error) {
       console.log(error);
       set({ isUploading: false, isError: true });
+    }
+  },
+
+  updateDonation: async (skipImageUpload, documentId, data) => {
+    if (skipImageUpload) {
+      console.log("Skipping Image Upload");
+      try {
+        set({ isUploading: true });
+        const result = await api.updateDocument(documentId, data);
+        set({ isUploading: false });
+        return result;
+      } catch (error) {
+        console.log(error);
+        set({ isUploading: false, isError: true });
+      }
+    } else {
+      console.log("Uploading Image");
+      try {
+        set({ isUploading: true });
+        const response = await api.uploadImage(data.url);
+        if (response !== "error") {
+          data.url = response;
+          const result = await api.updateDocument(documentId, data);
+          set({ isUploading: false });
+          return result;
+        }
+      } catch (error) {
+        console.log(error);
+        set({ isUploading: false, isError: true });
+      }
     }
   },
   updateUpload: (image) => {

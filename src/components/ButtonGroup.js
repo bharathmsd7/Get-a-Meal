@@ -1,16 +1,10 @@
+/** @format */
+
 import React, { useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
 import { COLORS } from "../constants/colors";
 
-export const ButtonGroup = () => {
+export const ButtonGroup = ({ selection, setSelection }) => {
   const category = [
     {
       index: 0,
@@ -18,34 +12,33 @@ export const ButtonGroup = () => {
     },
     {
       index: 1,
-      name: "Cooked",
+      name: "cooked",
     },
     {
       index: 2,
-      name: "Vegetables",
+      name: "vegetables",
     },
     {
       index: 3,
-      name: "Grocery",
+      name: "grocery",
     },
     {
       index: 4,
-      name: "Fruits",
+      name: "fruits",
     },
     {
       index: 5,
-      name: "Snacks",
+      name: "snacks",
     },
     {
       index: 6,
-      name: "Beverages",
+      name: "beverages",
     },
     {
       index: 7,
-      name: "Others",
+      name: "others",
     },
   ];
-  const [selection, setSelection] = useState("All");
 
   return (
     <View style={styles.container}>

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontFamily: "Outfit_700Bold",
+    fontFamily: "Outfit_600SemiBold",
   },
   input: {
     borderWidth: 1.5,

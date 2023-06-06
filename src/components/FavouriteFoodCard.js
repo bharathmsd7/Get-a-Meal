@@ -69,7 +69,7 @@ const FavouriteFoodCard = ({ item }) => {
                   style={{ color: "gray", fontFamily: "Outfit_400Regular" }}
                 >
                   {" "}
-                  {item.location}
+                  {item?.location}
                 </Text>
               </View>
               <Symbol veg={item.veg} />

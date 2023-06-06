@@ -6,22 +6,21 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Symbol from "./Symbol";
 import { COLORS } from "../constants/colors";
 import { navigateToScreen, timeAgo } from "../utils/commonutils";
-import { userStore } from "../store/userStore";
 
-const FoodCard = ({ item }) => {
-  const user = userStore((state) => state.data);
-  const favourite = item?.usersEnquired?.includes(user?.email);
+const Card = ({ item }) => {
+  //   const user = userStore((state) => state.data);
+  //   const favourite = item?.usersEnquired?.includes(user?.email);
 
   return (
     <Pressable
       style={styles.container}
       onPress={() => navigateToScreen("Details", item)}
     >
-      {favourite && (
+      {/* {favourite && (
         <View style={styles.favourite}>
           <Ionicons name={"bookmark"} size={26} color={COLORS.primary} />
         </View>
-      )}
+      )} */}
 
       <View style={{ flexDirection: "row" }}>
         <View style={{ width: 95, height: 95, borderRadius: 16 }}>
@@ -94,7 +93,7 @@ const FoodCard = ({ item }) => {
   );
 };
 
-export default FoodCard;
+export default Card;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,12 +1,18 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  StatusBar,
+} from "react-native";
 import React, { useState, useMemo, useEffect } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import { Dropdown } from "react-native-element-dropdown";
 import * as ImagePicker from "expo-image-picker";
 import Layout from "../components/Layout";
-import Header from "../components/Header";
 import InputText from "../components/InputText";
 import { COLORS } from "../constants/colors";
 import Button from "../components/Button";
@@ -16,20 +22,23 @@ import { userStore } from "../store/userStore";
 import Spinner from "react-native-loading-spinner-overlay";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const AddScreen = ({ navigation }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [veg, setVeg] = useState("");
-  const [category, setCategory] = useState("");
-  const [location, setLocation] = useState("");
-  const [donatedBy, setDonatedBy] = useState("");
-  const [contact, setContact] = useState("");
-  const [image, setImage] = useState("");
+const EditScreen = (props) => {
+  const data = props.route.params.data;
+
+  const [title, setTitle] = useState(data.title);
+  const [description, setDescription] = useState(data.description);
+  const [veg, setVeg] = useState(data.veg ? 1 : 2);
+  const [category, setCategory] = useState(data.category);
+  const [location, setLocation] = useState(data.location);
+  const [donatedBy, setDonatedBy] = useState(data.createdBy);
+  const [contact, setContact] = useState(data.contactNumber);
+  const [image, setImage] = useState(data.url);
   const [expires, setExpires] = useState(new Date());
   const [confirm, setConfirm] = useState(false);
   const [show, setShow] = useState(false);
+  const [skipImageUpload, setSkipImageUpload] = useState(true);
 
-  const createDonation = donationStore((state) => state.createDonation);
+  const updateDonation = donationStore((state) => state.updateDonation);
   const isUploading = donationStore((state) => state.isUploading);
   const user = userStore((state) => state.data);
 
@@ -63,30 +72,53 @@ const AddScreen = ({ navigation }) => {
 
   const handleImageUpload = async () => {
     console.log(veg);
-    const payload = {
-      title,
-      description,
-      veg: veg == 1 ? true : false,
-      category,
-      url: image,
-      location,
-      createdBy: donatedBy,
-      contactNumber: contact,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      userId: user.email,
-      completed: false,
-      expires,
-    };
+    let payload = {};
+    if (skipImageUpload) {
+      payload = {
+        title,
+        description,
+        veg: veg == 1 ? true : false,
+        category,
+        location,
+        createdBy: donatedBy,
+        contactNumber: contact,
+        updatedAt: new Date(),
+        userId: user.email,
+        completed: false,
+        expires,
+      };
+    } else {
+      payload = {
+        title,
+        description,
+        veg: veg == 1 ? true : false,
+        category,
+        url: image,
+        location,
+        createdBy: donatedBy,
+        contactNumber: contact,
+        updatedAt: new Date(),
+        userId: user.email,
+        completed: false,
+        expires,
+      };
+    }
+
+    const documentId = data.$id;
     console.log("payload", payload);
     if (payload) {
-      const response = await createDonation(payload);
+      const response = await updateDonation(
+        skipImageUpload,
+        documentId,
+        payload
+      );
       if (response && response !== "error") {
-        navigation.navigate("Success");
+        props.navigation.navigate("Success");
       }
     }
   };
   const pickImage = async () => {
+    setSkipImageUpload(false);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -114,6 +146,7 @@ const AddScreen = ({ navigation }) => {
     ],
     []
   );
+
   const categoryData = [
     { label: "Cooked", value: "cooked" },
     { label: "Vegetables", value: "vegetables" },
@@ -124,16 +157,28 @@ const AddScreen = ({ navigation }) => {
     { label: "Milk", value: "milk" },
     { label: "Others", value: "Others" },
   ];
+
   return (
     <>
-      <Layout>
+      <Layout paddingTop={StatusBar.currentHeight}>
         <Spinner
           visible={isUploading}
           textContent={"Donating your food..."}
           textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
         />
-        <Header title={"Create New Donation"} />
+
         <View style={styles.container}>
+          <Text
+            style={{
+              marginTop: 8,
+              marginBottom: 8,
+              fontSize: 20,
+              fontFamily: "Outfit_600SemiBold",
+              textAlign: "center",
+            }}
+          >
+            Edit your Donation
+          </Text>
           <InputText
             title="Title"
             placeholder="Give a Title like Wheat flour..."
@@ -152,7 +197,7 @@ const AddScreen = ({ navigation }) => {
               marginTop: 8,
               marginBottom: 8,
               fontSize: 16,
-              fontFamily: "Outfit_700Bold",
+              fontFamily: "Outfit_600SemiBold",
             }}
           >
             Food type
@@ -170,7 +215,7 @@ const AddScreen = ({ navigation }) => {
               marginTop: 8,
               marginBottom: 8,
               fontSize: 16,
-              fontFamily: "Outfit_700Bold",
+              fontFamily: "Outfit_600SemiBold",
             }}
           >
             Expires on
@@ -199,7 +244,7 @@ const AddScreen = ({ navigation }) => {
               marginTop: 8,
               marginBottom: 8,
               fontSize: 16,
-              fontFamily: "Outfit_700Bold",
+              fontFamily: "Outfit_600SemiBold",
             }}
           >
             Pick an Image
@@ -248,7 +293,7 @@ const AddScreen = ({ navigation }) => {
           />
           <InputText
             title="Contact"
-            placeholder="+91 *** **** ***"
+            placeholder="*** *** ****"
             value={contact}
             onChangeText={setContact}
           />
@@ -259,7 +304,7 @@ const AddScreen = ({ navigation }) => {
           <Button
             onPress={handleImageUpload}
             style={{ flex: 1 }}
-            text="Donate"
+            text="Confirm"
           />
         </View>
       )}
@@ -267,7 +312,7 @@ const AddScreen = ({ navigation }) => {
   );
 };
 
-export default AddScreen;
+export default EditScreen;
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -302,7 +347,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontFamily: "Outfit_700Bold",
+    fontFamily: "Outfit_600SemiBold",
   },
   input: {
     borderWidth: 1.5,

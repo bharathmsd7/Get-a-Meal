@@ -1,6 +1,13 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  ToastAndroid,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import InputText from "../components/InputText";
@@ -28,7 +35,10 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("SignupScreen User: " + JSON.stringify(user));
     if (user !== {} && user.$id && !user.isError) {
+      ToastAndroid.show("Welcome", ToastAndroid.SHORT);
       navigation.replace("Tabs");
+    } else {
+      ToastAndroid.show("Check you details", ToastAndroid.LONG);
     }
   }, [user]);
 

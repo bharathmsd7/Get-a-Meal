@@ -1,15 +1,18 @@
 /** @format */
 
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { COLORS } from "../constants/colors";
 import Avatar from "./Avatar";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { navigateToScreen } from "../utils/commonutils";
 
 const Header = ({ title }) => {
   return (
     <View style={styles.container}>
-      <Ionicons name={"arrow-back"} size={28} color={"gray"} />
+      <Pressable onPress={() => navigateToScreen("Home")}>
+        <Ionicons name={"arrow-back"} size={28} color={"gray"} />
+      </Pressable>
       <Text style={styles.title}>{title}</Text>
       <Avatar url={"https://picsum.photos/701"} />
     </View>

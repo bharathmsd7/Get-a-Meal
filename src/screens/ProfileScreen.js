@@ -1,6 +1,6 @@
 /** @format */
 
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
@@ -10,6 +10,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { userStore } from "../store/userStore";
 import { COLORS } from "../constants/colors";
+import { navigateToScreen } from "../utils/commonutils";
 
 const ProfileScreen = ({ navigation }) => {
   const user = userStore((state) => state.data);
@@ -23,7 +24,9 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <Layout>
       <View style={styles.headerContainer}>
-        <Ionicons name={"arrow-back"} size={28} color={"gray"} />
+        <Pressable onPress={() => navigateToScreen("Tabs")}>
+          <Ionicons name={"arrow-back"} size={28} color={"gray"} />
+        </Pressable>
         <Text style={styles.title}>Profile</Text>
         <Feather name={"edit"} size={24} color={"gray"} />
       </View>
@@ -145,7 +148,7 @@ const ProfileScreen = ({ navigation }) => {
                 Location
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                {user?.prefs?.city}
+                {user?.prefs?.city ? user.prefs.city : "Not Available"}
               </Text>
               <View
                 style={{
@@ -157,6 +160,31 @@ const ProfileScreen = ({ navigation }) => {
               />
             </View>
           </View>
+
+          <Pressable
+            onPress={() => navigateToScreen("MyDonations")}
+            style={styles.item}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  marginLeft: 40,
+                  fontSize: 16,
+                  fontFamily: "Outfit_500Medium",
+                }}
+              >
+                My Donations
+              </Text>
+              <Ionicons name={"arrow-forward"} size={32} color={"grey"} />
+            </View>
+          </Pressable>
         </View>
         <Button
           style={styles.logoutBtn}

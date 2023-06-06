@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ImageBackground,
   View,
+  ToastAndroid,
 } from "react-native";
 import React, { useEffect } from "react";
 import { userStore } from "../store/userStore";
@@ -17,11 +18,11 @@ const LoginSplash = ({ navigation }) => {
   const userSession = userStore((state) => state.userSession);
 
   useEffect(() => {
-    function getUserSession() {
-      userSession();
+    async function getUser() {
+      await userSession();
     }
-    getUserSession();
-  }, []);
+    getUser();
+  }, [userSession]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,13 +32,13 @@ const LoginSplash = ({ navigation }) => {
       >
         <Image
           style={styles.logo}
-          resizeMode='contain'
+          resizeMode="contain"
           source={require("../../assets/icon.png")}
         />
         <Text style={styles.title}>Get a Meal</Text>
         <ActivityIndicator
           style={styles.spinner}
-          size='large'
+          size="large"
           color={COLORS.primary}
         />
         <View style={styles.footerContainer}>
