@@ -122,7 +122,8 @@ const ProfileScreen = ({ navigation }) => {
                 Phone
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                {user?.phone ? user.phone : "Not Available"}
+                +91{" "}
+                {user?.prefs?.contact ? user.prefs.contact : "Not Available"}
               </Text>
               <View
                 style={{
@@ -148,7 +149,7 @@ const ProfileScreen = ({ navigation }) => {
                 Location
               </Text>
               <Text style={{ fontSize: 16, fontFamily: "Outfit_500Medium" }}>
-                {user?.prefs?.city ? user.prefs.city : "Not Available"}
+                {user?.prefs?.state ? user.prefs.state : "Not Available"}
               </Text>
               <View
                 style={{
@@ -161,7 +162,7 @@ const ProfileScreen = ({ navigation }) => {
             </View>
           </View>
 
-          <Pressable
+          {/* <Pressable
             onPress={() => navigateToScreen("MyDonations")}
             style={styles.item}
           >
@@ -184,7 +185,7 @@ const ProfileScreen = ({ navigation }) => {
               </Text>
               <Ionicons name={"arrow-forward"} size={32} color={"grey"} />
             </View>
-          </Pressable>
+          </Pressable> */}
         </View>
         <Button
           style={styles.logoutBtn}

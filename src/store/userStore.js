@@ -62,14 +62,14 @@ export const userStore = create((set, get) => ({
       set({ isLoading: false, isError: true });
     }
   },
-  updateUserLocation: async (location) => {
+  updateUserPreferences: async (preferences) => {
     try {
-      if (location) {
+      if (preferences) {
         set({ isLoading: true });
-        const response = await updatePreferences(location);
+        const response = await updatePreferences(preferences);
         if (response !== "error") {
           let userData = get().data;
-          userData.prefs = location;
+          userData.prefs = preferences;
           await setLocalStorage("@user", userData);
           set({ isLoading: false, data: userData });
         } else {

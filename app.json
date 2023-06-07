@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Share a meal",
-    "slug": "share-a-meal",
+    "slug": "get-a-meal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

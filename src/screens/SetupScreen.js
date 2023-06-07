@@ -13,13 +13,15 @@ const SetupScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [address, setAddress] = useState(null);
-  const updateUserLocation = userStore((state) => state.updateUserLocation);
+  const updateUserPreferences = userStore(
+    (state) => state.updateUserPreferences
+  );
   const isLoading = userStore((state) => state.isLoading);
   const isError = userStore((state) => state.isError);
 
   const handleUpdateLocation = () => {
     console.log(address);
-    updateUserLocation(address[0]);
+    updateUserPreferences(address[0]);
     if (isLoading == false && isError == false) {
       navigation.navigate("Tabs");
     }
@@ -68,22 +70,22 @@ const SetupScreen = ({ navigation }) => {
           <>
             <InputText
               editable={false}
-              title='City'
+              title="City"
               value={address?.[0]?.city}
             />
             <InputText
               editable={false}
-              title='District'
+              title="District"
               value={address?.[0]?.district}
             />
             <InputText
               editable={false}
-              title='Pincode'
+              title="Pincode"
               value={address?.[0]?.postalCode}
             />
             <Button
               style={{ marginTop: 16 }}
-              text='Update Location'
+              text="Update Location"
               onPress={handleUpdateLocation}
             />
           </>

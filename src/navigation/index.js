@@ -35,6 +35,7 @@ import SuccessScreen from "../screens/SuccessScreen";
 import MyDonationsScreen from "../screens/MyDonationsScreen";
 import EditScreen from "../screens/EditScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
+import CreateProfileScreen from "../screens/CreateProfileScreen";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -156,12 +157,15 @@ function Tabs({ navigation }) {
 function AppRouter({ onReady }) {
   return (
     <NavigationContainer onReady={onReady} ref={navigationRef}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen name="Splash" component={LoginSplash} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        {/* <Stack.Screen name="Setup" component={SetupScreen} /> */}
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Add" component={AddScreen} />

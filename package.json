@@ -6,7 +6,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "build-dev": "eas build --profile develop --platform android"
+    "build-dev": "eas build --profile develop --platform android",
+    "build-preview": "eas build --profile preview --platform android"
   },
   "dependencies": {
     "@expo-google-fonts/outfit": "^0.2.3",

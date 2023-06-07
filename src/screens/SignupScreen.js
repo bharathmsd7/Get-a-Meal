@@ -35,8 +35,8 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     console.log("SignupScreen User: " + JSON.stringify(user));
     if (user !== {} && user.$id && !user.isError) {
-      ToastAndroid.show("Welcome", ToastAndroid.SHORT);
-      navigation.replace("Tabs");
+      ToastAndroid.show("One more step", ToastAndroid.SHORT);
+      navigation.replace("CreateProfile");
     } else {
       ToastAndroid.show("Check you details", ToastAndroid.LONG);
     }

@@ -248,7 +248,7 @@ const AddScreen = ({ navigation }) => {
           />
           <InputText
             title="Contact"
-            placeholder="+91 *** **** ***"
+            placeholder="*** **** ***"
             value={contact}
             onChangeText={setContact}
           />
