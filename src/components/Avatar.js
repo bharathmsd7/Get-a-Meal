@@ -3,7 +3,7 @@
 import { StyleSheet, Image, View } from "react-native";
 import React from "react";
 
-const Avatar = ({ url }) => {
+const Avatar = ({ gender }) => {
   const size = 45;
   return (
     <View
@@ -20,7 +20,11 @@ const Avatar = ({ url }) => {
     >
       <Image
         style={{ width: "100%", height: "100%" }}
-        source={require("../../assets/icons/avatar.png")}
+        source={
+          gender === "male"
+            ? require("../../assets/icons/avatar.png")
+            : require("../../assets/icons/female.png")
+        }
       />
     </View>
   );

@@ -1,7 +1,7 @@
 /** @format */
 
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
 import Feather from "@expo/vector-icons/Feather";
@@ -13,7 +13,13 @@ import { COLORS } from "../constants/colors";
 import { navigateToScreen } from "../utils/commonutils";
 
 const ProfileScreen = ({ navigation }) => {
+  const [gender, setGender] = useState("male");
   const user = userStore((state) => state.data);
+  useEffect(() => {
+    if (user !== {}) {
+      setGender(user?.prefs?.gender);
+    }
+  }, [user]);
   const isLoading = userStore((state) => state.isLoading);
   const isError = userStore((state) => state.isError);
   const userLogout = userStore((state) => state.userLogout);
@@ -35,7 +41,11 @@ const ProfileScreen = ({ navigation }) => {
           <View style={styles.profilePictureContainer}>
             <Image
               style={styles.profilePicture}
-              source={require("../../assets/icons/avatar.png")}
+              source={
+                gender === "male"
+                  ? require("../../assets/icons/avatar.png")
+                  : require("../../assets/icons/female.png")
+              }
             />
           </View>
           <View style={{ gap: 4 }}>
