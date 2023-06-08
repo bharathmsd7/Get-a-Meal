@@ -36,7 +36,6 @@ export const donationStore = create((set, get) => ({
           }
           return item;
         });
-        // set({ data: updatedData });
         set({ isLoading: false });
       }
     } catch (error) {
