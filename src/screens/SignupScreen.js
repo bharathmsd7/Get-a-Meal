@@ -91,10 +91,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <View style={styles.orContainer}>
           <View style={styles.line}></View>
-          <Text style={styles.orText}>or</Text>
-          <View style={styles.line}></View>
         </View>
-        <View style={styles.socialContainer}>
+        {/* <View style={styles.socialContainer}>
           <Image
             style={{ width: 18, height: 18 }}
             source={require("../../assets/icons/google.png")}
@@ -104,9 +102,25 @@ const SignupScreen = ({ navigation }) => {
         <View style={styles.socialContainer}>
           <Ionicons name={"logo-apple"} size={18} color={"gray"} />
           <Text style={styles.socialText}>Sign in with Apple</Text>
-        </View>
+        </View> */}
+
+        <Pressable
+          onPress={() => navigation.navigate("Login")}
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 16,
+          }}
+        >
+          <Text style={styles.bottomText}>Already have an account?</Text>
+          <Text style={[styles.bottomText, { color: COLORS.primary }]}>
+            {" "}
+            Login here
+          </Text>
+        </Pressable>
       </View>
-      <Pressable
+      {/* <Pressable
         style={{
           position: "absolute",
           flexDirection: "row",
@@ -123,7 +137,7 @@ const SignupScreen = ({ navigation }) => {
           Login
         </Text>
         <Ionicons name={"arrow-forward"} size={20} color={COLORS.primary} />
-      </Pressable>
+      </Pressable> */}
     </Layout>
   );
 };
@@ -131,6 +145,11 @@ const SignupScreen = ({ navigation }) => {
 export default SignupScreen;
 
 const styles = StyleSheet.create({
+  bottomText: {
+    fontSize: 16,
+    fontFamily: "Outfit_600SemiBold",
+    textAlign: "center",
+  },
   socialText: {
     fontSize: 16,
     fontFamily: "Outfit_600SemiBold",
@@ -152,10 +171,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 16,
+    marginTop: 24,
   },
   line: {
     height: 1,
-    width: "45%",
+    width: "95%",
     backgroundColor: "lightgrey",
   },
   orText: {

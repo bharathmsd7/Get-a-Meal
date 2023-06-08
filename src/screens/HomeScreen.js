@@ -18,6 +18,7 @@ import { COLORS } from "../constants/colors";
 import { navigateToScreen } from "../utils/commonutils";
 
 const HomeScreen = () => {
+  const [gender, setGender] = useState("male");
   const user = userStore((state) => state.data);
   const donations = donationStore((state) => state.data);
   const getDonations = donationStore((state) => state.getAllDonations);
@@ -29,6 +30,12 @@ const HomeScreen = () => {
     }
     getDonationData();
   }, []);
+
+  useEffect(() => {
+    if (user !== {}) {
+      setGender(user?.prefs?.gender);
+    }
+  }, [user]);
 
   const FoodType = useMemo(
     () => [
@@ -71,7 +78,7 @@ const HomeScreen = () => {
     <Layout>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Bonjour {user?.name} 👋🏻</Text>
-        <Avatar />
+        <Avatar gender={gender} />
       </View>
 
       <SearchBar onPress={() => this._panel.show()} />
