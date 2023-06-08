@@ -4,22 +4,26 @@ import {
   StyleSheet,
   Image,
   View,
-  ImageBackground,
   StatusBar,
   Text,
   Pressable,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { COLORS } from "../constants/colors";
 import Button from "../components/Button";
+import { userStore } from "../store/userStore";
 
 const SuccessScreen = ({ navigation }) => {
+  const [gender, setGender] = useState("male");
+  const user = userStore((state) => state.data);
+  useEffect(() => {
+    if (user !== {}) {
+      setGender(user?.prefs?.gender);
+    }
+  }, [user]);
   return (
-    <ImageBackground
-      style={styles.image}
-      source={require("../../assets/icons/successbackground.png")}
-    >
+    <View style={styles.image}>
       <StatusBar
         backgroundColor={"#FF573300"}
         translucent
@@ -33,24 +37,24 @@ const SuccessScreen = ({ navigation }) => {
       />
       <View style={styles.card}>
         <Image
-          style={{ height: 150, width: 150, alignSelf: "center" }}
-          source={require("../../assets/icons/badge.png")}
+          style={{ height: 200, width: 200, alignSelf: "center" }}
+          source={
+            gender === "female"
+              ? require("../../assets/icons/femaleparty.png")
+              : require("../../assets/icons/maleparty.png")
+          }
         />
         <Text
           style={{
-            marginBottom: 20,
             fontSize: 20,
             fontFamily: "Outfit_600SemiBold",
             textAlign: "center",
-            marginTop: 30,
+            marginTop: 15,
           }}
         >
           Your Donation was appreciated
         </Text>
-        <Button
-          onPress={() => navigation.navigate("Home")}
-          text="Back to Home"
-        />
+
         <Pressable
           onPress={() => navigation.navigate("MyDonations")}
           style={{ marginVertical: 20 }}
@@ -60,13 +64,18 @@ const SuccessScreen = ({ navigation }) => {
               fontSize: 16,
               fontFamily: "Outfit_500Medium",
               textAlign: "center",
+              color: COLORS.primary,
             }}
           >
             Show my Donations
           </Text>
         </Pressable>
+        <Button
+          onPress={() => navigation.navigate("Home")}
+          text="Back to Home"
+        />
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -85,6 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 15,
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    elevation: 2,
+    paddingVertical: 20,
   },
 });
