@@ -8,10 +8,15 @@ import { donationStore } from "../store/donationStore";
 import FoodCard from "../components/FoodCard";
 import { ButtonGroup } from "../components/ButtonGroup";
 
-const ExploreScreen = () => {
+const ExploreScreen = (props) => {
+  const [selection, setSelection] = useState("All");
   const donations = donationStore((state) => state.data);
   const [filteredDonation, setFilteredDonation] = useState([]);
-  const [selection, setSelection] = useState("All");
+  useEffect(() => {
+    if (props.route.params !== undefined) {
+      setSelection(props.route.params);
+    }
+  }, []);
 
   useEffect(() => {
     if (selection == "All") {

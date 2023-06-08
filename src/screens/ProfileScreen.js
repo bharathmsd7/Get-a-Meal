@@ -30,9 +30,7 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <Layout>
       <View style={styles.headerContainer}>
-        <Pressable onPress={() => navigateToScreen("Tabs")}>
-          <Ionicons name={"arrow-back"} size={28} color={"gray"} />
-        </Pressable>
+        <View style={{ width: 24 }} />
         <Text style={styles.title}>Profile</Text>
         <Feather name={"edit"} size={24} color={"gray"} />
       </View>
@@ -247,7 +245,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     color: COLORS.black,
     fontFamily: "Outfit_600SemiBold",
   },

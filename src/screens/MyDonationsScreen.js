@@ -39,7 +39,7 @@ const MyDonationsScreen = () => {
 
   return (
     <Layout>
-      <Header title="My Donations" />
+      <Header back={false} avatar={false} title="My Donations" />
       <View style={{ height: windowHeight, paddingHorizontal: 16 }}>
         {myDonations &&
           myDonations?.map((donation, index) => (

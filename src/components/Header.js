@@ -8,7 +8,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { navigateToScreen } from "../utils/commonutils";
 import { userStore } from "../store/userStore";
 
-const Header = ({ title }) => {
+const Header = ({ title, back = true, avatar = true }) => {
   const [gender, setGender] = useState("male");
   const user = userStore((state) => state.data);
 
@@ -20,11 +20,16 @@ const Header = ({ title }) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => navigateToScreen("Home")}>
-        <Ionicons name={"arrow-back"} size={28} color={"gray"} />
-      </Pressable>
+      {back ? (
+        <Pressable onPress={() => navigateToScreen("Home")}>
+          <Ionicons name={"arrow-back"} size={28} color={"gray"} />
+        </Pressable>
+      ) : (
+        <View style={{ width: 28 }} />
+      )}
+
       <Text style={styles.title}>{title}</Text>
-      <Avatar gender={gender} />
+      {avatar ? <Avatar gender={gender} /> : <View style={{ width: 28 }} />}
     </View>
   );
 };
@@ -40,7 +45,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 20,
+    textAlign: "center",
+    fontSize: 22,
     color: COLORS.black,
     fontFamily: "Outfit_700Bold",
   },

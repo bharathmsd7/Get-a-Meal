@@ -115,7 +115,7 @@ function Tabs({ navigation }) {
       shadowStyle={styles.shawdow}
       height={65}
       circleWidth={50}
-      bgColor="white"
+      bgColor={"#f8f8ff"}
       initialRouteName="Home"
       borderTopLeftRight
       renderCircle={({ selectedTab, navigate }) => (
@@ -200,8 +200,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bottomBar: {
-    elevation: 5,
-    shadowColor: "#000",
+    shadowColor: "#fff",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -239,13 +238,5 @@ export const styles = StyleSheet.create({
   img: {
     width: 30,
     height: 30,
-  },
-  screen1: {
-    flex: 1,
-    backgroundColor: "#BFEFFF",
-  },
-  screen2: {
-    flex: 1,
-    backgroundColor: "#FFEBCD",
   },
 });

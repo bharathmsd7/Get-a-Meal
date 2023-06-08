@@ -11,43 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import FoodCard from "./FoodCard";
 import { COLORS } from "../constants/colors";
-const data = [
-  {
-    title: "Food available for 5 people",
-    description: "Cooked rice, fish, daal full packed",
-    veg: false,
-    distance: "02",
-    url: "https://ministryofcurry.com/wp-content/uploads/2020/12/fish-curry-6-scaled.jpg",
-  },
-  {
-    title: "Food available for 5 people",
-    description: "Cooked rice, fish, daal full packed, dry fruits and cucumber",
-    veg: true,
-    distance: "2",
-    url: "https://ministryofcurry.com/wp-content/uploads/2020/12/fish-curry-6-scaled.jpg",
-  },
-  {
-    title: "Food available for 5 people",
-    description: "Cooked rice, fish, daal full packed",
-    veg: false,
-    distance: "2",
-    url: "https://ministryofcurry.com/wp-content/uploads/2020/12/fish-curry-6-scaled.jpg",
-  },
-  {
-    title: "Food available for 5 people",
-    description: "Cooked rice, fish, daal full packed",
-    veg: false,
-    distance: "2",
-    url: "https://ministryofcurry.com/wp-content/uploads/2020/12/fish-curry-6-scaled.jpg",
-  },
-  {
-    title: "Food available for 5 people",
-    description: "Cooked rice, fish, daal full packed",
-    veg: false,
-    distance: "2",
-    url: "https://ministryofcurry.com/wp-content/uploads/2020/12/fish-curry-6-scaled.jpg",
-  },
-];
+import FoodCardSkeleton from "./FoodCardSkeleton";
 
 const ExploreSection = ({ data, onPress, isLoading }) => {
   let activeData = [];
@@ -85,14 +49,13 @@ const ExploreSection = ({ data, onPress, isLoading }) => {
         </Pressable>
       </View>
       {isLoading && (
-        <View style={{ justifyContent: "center" }}>
-          <ActivityIndicator size="large" color={COLORS.primary} />
-          <Text
-            style={{ fontFamily: "Outfit_400Regular", textAlign: "center" }}
-          >
-            Loading...
-          </Text>
-        </View>
+        <>
+          <FoodCardSkeleton />
+          <FoodCardSkeleton />
+          <FoodCardSkeleton />
+          <FoodCardSkeleton />
+          <FoodCardSkeleton />
+        </>
       )}
       {activeData?.slice(0, 4).map((item, index) => (
         <FoodCard item={item} key={index} />

@@ -16,8 +16,9 @@ import { userStore } from "../store/userStore";
 import { donationStore } from "../store/donationStore";
 import { COLORS } from "../constants/colors";
 import { navigateToScreen } from "../utils/commonutils";
+import { MotiView } from "moti";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [gender, setGender] = useState("male");
   const user = userStore((state) => state.data);
   const donations = donationStore((state) => state.data);
@@ -81,8 +82,10 @@ const HomeScreen = () => {
         <Avatar gender={gender} />
       </View>
 
-      <SearchBar onPress={() => _panel.show()} />
-      <Category />
+      <SearchBar
+      //  onPress={() => _panel.show()}
+      />
+      <Category navigation={navigation} />
       <Divider />
 
       <ExploreSection
@@ -91,7 +94,7 @@ const HomeScreen = () => {
         isLoading={isLoading}
       />
 
-      <SlidingUpPanel snappingPoints={[50]} ref={(c) => (_panel = c)}>
+      {/* <SlidingUpPanel snappingPoints={[50]} ref={(c) => (_panel = c)}>
         <View style={styles.container}>
           <View
             style={{
@@ -184,7 +187,7 @@ const HomeScreen = () => {
             </Text>
           </Pressable>
         </View>
-      </SlidingUpPanel>
+      </SlidingUpPanel> */}
     </Layout>
   );
 };

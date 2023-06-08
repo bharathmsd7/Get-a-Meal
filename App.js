@@ -1,5 +1,7 @@
 /** @format */
 import { useCallback } from "react";
+import "react-native-reanimated";
+import "react-native-gesture-handler";
 import AppRouter from "./src/navigation";
 import * as SplashScreen from "expo-splash-screen";
 import {
