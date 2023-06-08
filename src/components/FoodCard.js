@@ -14,7 +14,7 @@ const FoodCard = ({ item }) => {
 
   return (
     <Pressable
-      style={styles.container}
+      style={[styles.container, { opacity: item?.completed ? 0.4 : 1 }]}
       onPress={() => navigateToScreen("Details", item)}
     >
       {favourite && (

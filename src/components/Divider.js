@@ -13,8 +13,9 @@ export default Divider;
 const styles = StyleSheet.create({
   divider: {
     height: 1,
-    backgroundColor: COLORS.divider,
+    backgroundColor: COLORS.grey,
     marginVertical: 5,
     marginHorizontal: 16,
+    opacity: 0.3,
   },
 });

@@ -18,8 +18,10 @@ import Button from "../components/Button";
 import { userStore } from "../store/userStore";
 import { donationStore } from "../store/donationStore";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { timeAgo } from "../utils/commonutils";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,6 +33,8 @@ const DetailScreen = (props) => {
   const user = userStore((state) => state.data);
   const getDonations = donationStore((state) => state.getAllDonations);
   const updateFavourite = donationStore((state) => state.updateFavourite);
+  const completeDonation = donationStore((state) => state.completeDonation);
+
   const isLoading = donationStore((state) => state.isLoading);
 
   const date = data?.createdAt.split("T")[0];
@@ -42,6 +46,17 @@ const DetailScreen = (props) => {
   function getDonationData() {
     getDonations();
   }
+
+  const handleCompleted = () => {
+    try {
+      const payload = {
+        completed: true,
+      };
+      completeDonation(data?.$id, payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleFavourite = () => {
     try {
@@ -73,6 +88,11 @@ const DetailScreen = (props) => {
     <>
       <ScrollView style={styles.container}>
         <StatusBar backgroundColor={"#FF573300"} translucent />
+        <Spinner
+          visible={isLoading}
+          textContent={"Donating your food..."}
+          textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
+        />
         <View
           style={{
             position: "absolute",
@@ -91,27 +111,48 @@ const DetailScreen = (props) => {
             <AntDesign name={"arrowleft"} size={25} color={COLORS.white} />
           </Pressable>
         </View>
-        <Pressable
-          style={{
-            position: "absolute",
-            top: 40,
-            right: 16,
-            zIndex: 10,
-            borderRadius: 5,
-            height: 40,
-            width: 40,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(225, 225, 225, 0.5)",
-          }}
-          onPress={handleFavourite}
-        >
-          <Ionicons
-            name={favourite ? "bookmark" : "bookmark-outline"}
-            size={25}
-            color={favourite ? COLORS.primary : COLORS.white}
-          />
-        </Pressable>
+        {isMyDonation ? (
+          <Pressable
+            style={{
+              position: "absolute",
+              top: 40,
+              right: 16,
+              zIndex: 10,
+              borderRadius: 5,
+              height: 40,
+              width: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(225, 225, 225, 0.5)",
+            }}
+            onPress={() => props.navigation.navigate("Edit", { data: item })}
+          >
+            <Entypo name={"edit"} size={20} color={COLORS.white} />
+          </Pressable>
+        ) : (
+          <Pressable
+            style={{
+              position: "absolute",
+              top: 40,
+              right: 16,
+              zIndex: 10,
+              borderRadius: 5,
+              height: 40,
+              width: 40,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(225, 225, 225, 0.5)",
+            }}
+            onPress={handleFavourite}
+          >
+            <Ionicons
+              name={favourite ? "bookmark" : "bookmark-outline"}
+              size={25}
+              color={favourite ? COLORS.primary : COLORS.white}
+            />
+          </Pressable>
+        )}
+
         <View style={styles.imageContainer}>
           <Image
             style={{
@@ -204,9 +245,9 @@ const DetailScreen = (props) => {
       <View style={styles.bottomContainer}>
         {isMyDonation ? (
           <Button
-            onPress={() => props.navigation.navigate("Edit", { data: item })}
+            onPress={handleCompleted}
             style={{ flex: 1 }}
-            text="Edit Details"
+            text="Mark as Completed"
           />
         ) : (
           <Button

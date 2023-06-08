@@ -50,6 +50,12 @@ const data = [
 ];
 
 const ExploreSection = ({ data, onPress, isLoading }) => {
+  let activeData = [];
+  data?.map((item, index) => {
+    if (!item.completed) {
+      activeData.push(item);
+    }
+  });
   return (
     <View style={styles.container}>
       <View
@@ -80,7 +86,7 @@ const ExploreSection = ({ data, onPress, isLoading }) => {
       </View>
       {isLoading && (
         <View style={{ justifyContent: "center" }}>
-          <ActivityIndicator size='large' color={COLORS.primary} />
+          <ActivityIndicator size="large" color={COLORS.primary} />
           <Text
             style={{ fontFamily: "Outfit_400Regular", textAlign: "center" }}
           >
@@ -88,7 +94,7 @@ const ExploreSection = ({ data, onPress, isLoading }) => {
           </Text>
         </View>
       )}
-      {data?.slice(0, 4).map((item, index) => (
+      {activeData?.slice(0, 4).map((item, index) => (
         <FoodCard item={item} key={index} />
       ))}
     </View>

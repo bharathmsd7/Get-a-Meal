@@ -13,7 +13,7 @@ const Card = ({ item }) => {
 
   return (
     <Pressable
-      style={styles.container}
+      style={[styles.container, { opacity: item?.completed ? 0.5 : 1 }]}
       onPress={() => navigateToScreen("Details", item)}
     >
       {/* {favourite && (

@@ -1,6 +1,6 @@
 /** @format */
 
-import { Client as Appwrite, Databases, Account, Storage } from "appwrite";
+import { Client as Appwrite, Databases, Account, Query } from "appwrite";
 import { Server } from "../config/Server";
 
 let api = {

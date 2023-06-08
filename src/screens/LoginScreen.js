@@ -73,7 +73,7 @@ const LoginScreen = ({ navigation }) => {
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="alex@google.com"
+          placeholder="alex@appwrite.io"
           title="Enter email address"
         />
         <InputText

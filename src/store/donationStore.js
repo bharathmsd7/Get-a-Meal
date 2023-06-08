@@ -61,6 +61,18 @@ export const donationStore = create((set, get) => ({
     }
   },
 
+  completeDonation: async (documentId, data) => {
+    try {
+      set({ isLoading: true });
+      const result = await api.updateDocument(documentId, data);
+      set({ isLoading: false });
+      return result;
+    } catch (error) {
+      console.log(error);
+      set({ isLoading: false, isError: true });
+    }
+  },
+
   updateDonation: async (skipImageUpload, documentId, data) => {
     if (skipImageUpload) {
       console.log("Skipping Image Upload");
@@ -89,10 +101,5 @@ export const donationStore = create((set, get) => ({
         set({ isUploading: false, isError: true });
       }
     }
-  },
-  updateUpload: (image) => {
-    try {
-      set({ isUploading: false, uploadedImage: image });
-    } catch (error) {}
   },
 }));

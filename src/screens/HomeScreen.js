@@ -81,7 +81,7 @@ const HomeScreen = () => {
         <Avatar gender={gender} />
       </View>
 
-      <SearchBar onPress={() => this._panel.show()} />
+      <SearchBar onPress={() => _panel.show()} />
       <Category />
       <Divider />
 
@@ -91,7 +91,7 @@ const HomeScreen = () => {
         isLoading={isLoading}
       />
 
-      <SlidingUpPanel snappingPoints={[50]} ref={(c) => (this._panel = c)}>
+      <SlidingUpPanel snappingPoints={[50]} ref={(c) => (_panel = c)}>
         <View style={styles.container}>
           <View
             style={{
@@ -168,7 +168,7 @@ const HomeScreen = () => {
           />
           <Button
             style={{ marginTop: 26 }}
-            onPress={() => this._panel.hide()}
+            onPress={() => _panel.hide()}
             text="Show results"
           />
           <Pressable style={{ marginVertical: 8, alignSelf: "center" }}>
