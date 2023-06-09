@@ -22,7 +22,6 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState();
   const [disabled, setDisabled] = useState(true);
 
-  const user = userStore((state) => state.data);
   const isLoading = userStore((state) => state.isLoading);
   const isError = userStore((state) => state.isError);
   const userLogin = userStore((state) => state.userLogin);
@@ -31,24 +30,10 @@ const LoginScreen = ({ navigation }) => {
     userLogin(email, password);
     if (isError == true && isLoading == false) {
       ToastAndroid.show("Successfully Loggedin", ToastAndroid.SHORT);
-      navigation.replace("Tabs");
     } else {
       ToastAndroid.show("Invalid credentials", ToastAndroid.LONG);
     }
   };
-
-  // useEffect(() => {
-  //   console.log("LoginScreen User: " + JSON.stringify(user));
-  //   if (user !== {} && user.$id && !user.isError) {
-  //     console.log("LOGIN SCREEN TO WHICH", user.prefs);
-  //     if (user.prefs == undefined) {
-  //       navigation.replace("Setup");
-  //     } else {
-  //       console.log("ELSE PART");
-  //       navigation.replace("Tabs");
-  //     }
-  //   }
-  // }, [user]);
 
   useEffect(() => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -63,7 +48,11 @@ const LoginScreen = ({ navigation }) => {
       <Spinner
         visible={isLoading}
         textContent={"Loading..."}
-        textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
+        textStyle={{
+          color: "white",
+          fontSize: 20,
+          fontFamily: "Outfit_600SemiBold",
+        }}
       />
       <View style={styles.header}>
         <Image style={styles.logo} source={require("../../assets/icon.png")} />

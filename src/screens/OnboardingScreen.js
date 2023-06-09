@@ -11,8 +11,8 @@ import {
   Dimensions,
 } from "react-native";
 import Button from "../components/Button";
-import { setLocalStorage } from "../utils/commonutils";
 const { width, height } = Dimensions.get("screen");
+import { userStore } from "../store/userStore";
 
 const bgs = ["#3c3a36", "#F74F68", "#6FB9DD", "#B98EFF"];
 const DATA = [
@@ -140,6 +140,8 @@ const Square = ({ scrollX }) => {
 };
 
 export default function OnboardingScreen({ navigation }) {
+  const completeOnboarding = userStore((state) => state.completeOnboarding);
+
   const scrollX = useRef(new Animated.Value(0)).current;
 
   return (
@@ -211,8 +213,7 @@ export default function OnboardingScreen({ navigation }) {
                     text={"Continue"}
                     style={{ width: width - 40 }}
                     onPress={() => {
-                      setLocalStorage("@onboardingCompleted", true);
-                      navigation.replace("Splash");
+                      completeOnboarding();
                     }}
                   />
                 </View>

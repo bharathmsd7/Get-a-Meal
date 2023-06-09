@@ -2,7 +2,7 @@
 
 // In App.js in a new project
 
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -36,6 +36,7 @@ import MyDonationsScreen from "../screens/MyDonationsScreen";
 import EditScreen from "../screens/EditScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import CreateProfileScreen from "../screens/CreateProfileScreen";
+import { userStore } from "../store/userStore";
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -154,18 +155,14 @@ function Tabs({ navigation }) {
   );
 }
 
-function AppRouter({ onReady }) {
-  return (
-    <NavigationContainer onReady={onReady} ref={navigationRef}>
+const AppStack = ({ isProfileCreated }) => {
+  console.log("PROFILE CREATED : ", isProfileCreated);
+  if (isProfileCreated) {
+    return (
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="Tabs"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Splash" component={LoginSplash} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
-        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Add" component={AddScreen} />
@@ -175,6 +172,73 @@ function AppRouter({ onReady }) {
         <Stack.Screen name="MyDonations" component={MyDonationsScreen} />
         <Stack.Screen name="Edit" component={EditScreen} />
       </Stack.Navigator>
+    );
+  } else {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
+      </Stack.Navigator>
+    );
+  }
+};
+
+const AuthStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const OnboardingStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+    </Stack.Navigator>
+  );
+};
+
+function AppRouter({ onReady }) {
+  const isLoading = userStore((state) => state.isLoading);
+  const isProfileCreated = userStore((state) => state.isProfileCreated);
+  const isAuthenticated = userStore((state) => state.isAuthenticated);
+  const isOnboardingDone = userStore((state) => state.isOnboardingDone);
+
+  const getUserSession = userStore((state) => state.getUserSession);
+
+  useEffect(() => {
+    getUserSession();
+  }, []);
+
+  if (isLoading) {
+    <LoginSplash />;
+  }
+
+  const AuthRouter = () => {
+    if (isAuthenticated) {
+      return <AppStack isProfileCreated={isProfileCreated} />;
+    } else {
+      return <AuthStack />;
+    }
+  };
+
+  const Router = () => {
+    if (isOnboardingDone) {
+      return <AuthRouter />;
+    } else {
+      return <OnboardingStack />;
+    }
+  };
+  return (
+    <NavigationContainer onReady={onReady} ref={navigationRef}>
+      {isLoading ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Splash" component={LoginSplash} />
+        </Stack.Navigator>
+      ) : (
+        <Router />
+      )}
     </NavigationContainer>
   );
 }

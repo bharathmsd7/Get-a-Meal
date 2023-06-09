@@ -16,13 +16,6 @@ import { COLORS } from "../constants/colors";
 const LoginSplash = ({ navigation }) => {
   const userSession = userStore((state) => state.userSession);
 
-  useEffect(() => {
-    async function getUser() {
-      await userSession();
-    }
-    getUser();
-  }, [userSession]);
-
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground

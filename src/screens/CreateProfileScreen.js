@@ -21,7 +21,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 const { width, height } = Dimensions.get("window");
 
-const CreateProfileScreen = ({ navigation }) => {
+const CreateProfileScreen = () => {
   const updateUserPreferences = userStore(
     (state) => state.updateUserPreferences
   );
@@ -99,7 +99,6 @@ const CreateProfileScreen = ({ navigation }) => {
     }
     if (isLoading == false && isError == false) {
       ToastAndroid.show("Welcome to ShareAMeal", ToastAndroid.SHORT);
-      navigation.navigate("Tabs");
     }
   };
   return (

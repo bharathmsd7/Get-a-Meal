@@ -7,14 +7,67 @@ import {
   getLocalStorage,
   compareDateTime,
   deleteLocalStorage,
-  navigateToScreen,
 } from "../utils/commonutils";
 
 export const userStore = create((set, get) => ({
   data: {},
   isLoading: false,
   isError: false,
+  isAuthenticated: false,
+  isOnboardingDone: true,
+  isProfileCreated: false,
 
+  getUserSession: async () => {
+    console.log("Getting user session");
+    try {
+      set({ isLoading: true });
+      const onboardingDone = await getLocalStorage("@onboardingCompleted");
+      const user = await getLocalStorage("@user");
+      if (onboardingDone) {
+        set({ isOnboardingDone: true });
+        console.log("Onboarding done");
+      } else {
+        set({ isOnboardingDone: false });
+        console.log("Onboarding not done");
+      }
+      if (user) {
+        const expired = compareDateTime(user.expire);
+        if (expired) {
+          set({ isAuthenticated: false, isLoading: false });
+          console.log("Session expired");
+        } else {
+          set({
+            data: user,
+            isAuthenticated: true,
+            isLoading: false,
+            isProfileCreated: true,
+          });
+          console.log("Silent Login Success");
+        }
+      } else {
+        set({ isAuthenticated: false, isLoading: false });
+        console.log("No session available");
+      }
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: userStore.js:39 ~ getUserSession: ~ error:",
+        error
+      );
+    }
+  },
+  completeOnboarding: async () => {
+    try {
+      set({ isLoading: true });
+      await setLocalStorage("@onboardingCompleted", true);
+      set({ isOnboardingDone: true, isLoading: false });
+    } catch (error) {
+      set({ isLoading: false, isError: true });
+      console.log(
+        "🚀 ~ file: userStore.js:54 ~ completeOnboarding: ~ error:",
+        error
+      );
+    }
+  },
   userLogin: async (email, password) => {
     try {
       set({ isLoading: true });
@@ -24,7 +77,12 @@ export const userStore = create((set, get) => ({
         if (accountResponse !== "error") {
           let userResponse = { ...accountResponse, ...response };
           await setLocalStorage("@user", userResponse);
-          set({ isLoading: false, data: userResponse });
+          set({
+            isLoading: false,
+            data: userResponse,
+            isAuthenticated: true,
+            isProfileCreated: true,
+          });
         }
       } else {
         set({ isLoading: false, isError: true });
@@ -52,9 +110,13 @@ export const userStore = create((set, get) => ({
       set({ isLoading: true });
       const response = await logout();
       if (response !== "error") {
-        set({ isLoading: false, data: {} });
+        set({
+          isLoading: false,
+          data: {},
+          isAuthenticated: false,
+          isProfileCreated: false,
+        });
         await deleteLocalStorage("@user");
-        navigateToScreen("Login");
       } else {
         console.log("Logout failed");
         set({ isLoading: false, isError: true });
@@ -72,45 +134,13 @@ export const userStore = create((set, get) => ({
           let userData = get().data;
           userData.prefs = preferences;
           await setLocalStorage("@user", userData);
-          set({ isLoading: false, data: userData });
+          set({ isLoading: false, data: userData, isProfileCreated: true });
         } else {
           set({ isLoading: false, isError: true });
         }
       }
     } catch (error) {
       set({ isLoading: false, isError: true });
-    }
-  },
-  userSession: async () => {
-    try {
-      console.log("GET USER SESSION");
-      set({ isLoading: true });
-      const onboardingDone = await getLocalStorage("@onboardingCompleted");
-      const user = await getLocalStorage("@user");
-
-      if (onboardingDone === null && user === null) {
-        set({ isLoading: false });
-        navigateToScreen("Onboarding");
-      } else {
-        if (user != null && user.expire) {
-          const expired = compareDateTime(user.expire);
-          if (expired) {
-            set({ isLoading: false });
-            navigateToScreen("Signup");
-          } else {
-            set({ isLoading: false, data: user });
-            navigateToScreen("Tabs");
-          }
-        } else {
-          console.log("User session not found");
-          set({ isLoading: false, data: {} });
-          navigateToScreen("Signup");
-        }
-      }
-    } catch (error) {
-      console.log("ERROR", error);
-      set({ isLoading: false });
-      navigateToScreen("Signup");
     }
   },
 }));
