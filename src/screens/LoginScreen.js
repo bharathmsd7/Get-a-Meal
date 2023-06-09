@@ -29,7 +29,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = () => {
     userLogin(email, password);
-    if (isLoading == false && isError == false) {
+    if (isError == true && isLoading == false) {
       ToastAndroid.show("Successfully Loggedin", ToastAndroid.SHORT);
       navigation.replace("Tabs");
     } else {

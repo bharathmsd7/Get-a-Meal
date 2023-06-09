@@ -26,9 +26,10 @@ export const userStore = create((set, get) => ({
           await setLocalStorage("@user", userResponse);
           set({ isLoading: false, data: userResponse });
         }
+      } else {
+        set({ isLoading: false, isError: true });
       }
     } catch (error) {
-      console.log(error);
       set({ isLoading: false, isError: true });
     }
   },

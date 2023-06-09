@@ -34,7 +34,7 @@ const LoginSplash = ({ navigation }) => {
           resizeMode="contain"
           source={require("../../assets/icon.png")}
         />
-        <Text style={styles.title}>Get a Meal</Text>
+        <Text style={styles.title}>Share A Meal</Text>
         <ActivityIndicator
           style={styles.spinner}
           size="large"
