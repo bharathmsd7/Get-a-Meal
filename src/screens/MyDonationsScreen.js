@@ -40,30 +40,36 @@ const MyDonationsScreen = () => {
   return (
     <Layout>
       <Header back={false} avatar={false} title="My Donations" />
-      <View style={{ height: windowHeight, paddingHorizontal: 16 }}>
+      <View
+        style={{
+          height: windowHeight,
+          paddingHorizontal: 16,
+          marginBottom: 100,
+        }}
+      >
         {myDonations &&
           myDonations?.map((donation, index) => (
             <Card item={donation} key={index} />
           ))}
         {myDonations.length === 0 && (
           <>
-            <Text
-              style={{
-                fontSize: 18,
-                marginTop: 50,
-                fontFamily: "Outfit_500Medium",
-                textAlign: "center",
-              }}
-            >
-              You havn't donated yet!
-            </Text>
             <View
               style={{
                 position: "absolute",
-                bottom: 210,
+                bottom: 180,
                 alignSelf: "center",
               }}
             >
+              <Text
+                style={{
+                  fontSize: 18,
+                  marginBottom: 20,
+                  fontFamily: "Outfit_500Medium",
+                  textAlign: "center",
+                }}
+              >
+                You havn't donated yet!
+              </Text>
               <Text
                 style={{
                   fontSize: 24,
