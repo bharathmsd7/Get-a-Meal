@@ -2,20 +2,21 @@
 
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   Pressable,
   ToastAndroid,
+  Text,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import CustomText from "../components/CustomText";
 import { userStore } from "../store/userStore";
 import Spinner from "react-native-loading-spinner-overlay";
 import { COLORS } from "../constants/colors";
+import { themeStore } from "../store/themeStore";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -25,6 +26,9 @@ const LoginScreen = ({ navigation }) => {
   const isLoading = userStore((state) => state.isLoading);
   const isError = userStore((state) => state.isError);
   const userLogin = userStore((state) => state.userLogin);
+
+  const theme = themeStore((state) => state.theme);
+  const setTheme = themeStore((state) => state.setTheme);
 
   const handleLogin = () => {
     userLogin(email, password);
@@ -48,15 +52,12 @@ const LoginScreen = ({ navigation }) => {
       <Spinner
         visible={isLoading}
         textContent={"Loading..."}
-        textStyle={{
-          color: "white",
-          fontSize: 20,
-          fontFamily: "Outfit_600SemiBold",
-        }}
+        textStyle={theme.LoginScreen.spinner}
       />
       <View style={styles.header}>
         <Image style={styles.logo} source={require("../../assets/icon.png")} />
-        <Text style={styles.title}>Share a Meal</Text>
+
+        <CustomText style={theme.LoginScreen.title}>Share a Meal</CustomText>
       </View>
       <View style={styles.body}>
         <InputText
@@ -79,7 +80,7 @@ const LoginScreen = ({ navigation }) => {
           text="Login"
         />
         <View style={styles.orContainer}>
-          <View style={styles.line}></View>
+          <View style={theme.LoginScreen.line}></View>
         </View>
         {/* <View style={styles.socialContainer}>
           <Image

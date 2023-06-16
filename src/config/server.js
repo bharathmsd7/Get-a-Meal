@@ -1,7 +1,9 @@
+/** @format */
+
 export const Server = {
   endpoint: "https://cloud.appwrite.io/v1",
-  project: PORJECT_CODE,
-  collectionID: COLLECTION_ID,
-  databaseID: DATABASE_ID,
-  bucketID: STORAGE_BUCKET_ID,
+  project: "getamealnow",
+  collectionID: "64798f39a4a25dd2f146",
+  databaseID: "test-db",
+  bucketID: "test",
 };

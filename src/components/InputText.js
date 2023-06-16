@@ -1,8 +1,10 @@
 /** @format */
 
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
 import React, { useState } from "react";
+import CustomText from "./CustomText";
 import { COLORS } from "../constants/colors";
+import { themeStore } from "../store/themeStore";
 
 const InputText = ({
   title,
@@ -14,11 +16,12 @@ const InputText = ({
   editable = true,
   maxLength = 35,
 }) => {
-  const [isFocused, setIsFocused] = useState("lightgrey");
+  const theme = themeStore((state) => state.theme);
+  const [isFocused, setIsFocused] = useState("#d3d3d3");
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{title}</Text>
+      <CustomText style={styles.label}>{title}</CustomText>
       <TextInput
         editable={editable}
         disabled={disabled}

@@ -3,19 +3,23 @@
 import { StyleSheet, SafeAreaView, StatusBar, ScrollView } from "react-native";
 import React from "react";
 import { COLORS } from "../constants/colors";
+import { themeStore } from "../store/themeStore";
 
-const Layout = ({
-  scroll,
-  backgroundColor = COLORS.white,
-  children,
-  paddingTop,
-}) => {
+const Layout = ({ scroll, children, paddingTop }) => {
+  const theme = themeStore((state) => state.theme);
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor }, { paddingTop }]}
+      style={[
+        styles.container,
+        { backgroundColor: theme.backgroundColor },
+        { paddingTop },
+      ]}
     >
       <ScrollView scrollEnabled={scroll} showsVerticalScrollIndicator={false}>
-        <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
+        <StatusBar
+          backgroundColor={theme.statusBarColor}
+          barStyle={theme.barStyle}
+        />
         {children}
       </ScrollView>
     </SafeAreaView>
