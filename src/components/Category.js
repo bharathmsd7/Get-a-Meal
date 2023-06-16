@@ -11,6 +11,7 @@ import {
 import React from "react";
 import { COLORS } from "../constants/colors";
 import { navigateToScreen } from "../utils/commonutils";
+import { themeStore } from "../store/themeStore";
 
 const data = [
   {
@@ -52,6 +53,7 @@ const data = [
 ];
 
 const Category = () => {
+  const theme = themeStore((state) => state.theme);
   return (
     <View style={styles.container}>
       <FlatList
@@ -75,10 +77,10 @@ const Category = () => {
                 height: 90,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: COLORS.background,
+                backgroundColor: theme.category.backgroundColor,
                 borderRadius: 50,
                 borderWidth: 0.7,
-                borderColor: "lightgray",
+                borderColor: theme.category.outline,
               }}
             >
               <Image
@@ -91,6 +93,7 @@ const Category = () => {
                 marginTop: 8,
                 fontSize: 14,
                 fontFamily: "Outfit_600SemiBold",
+                color: theme.category.textColor,
               }}
             >
               {item.name}

@@ -15,7 +15,7 @@ import Button from "../components/Button";
 import CustomText from "../components/CustomText";
 import { userStore } from "../store/userStore";
 import Spinner from "react-native-loading-spinner-overlay";
-import { COLORS } from "../constants/colors";
+import { COLORS } from "../theme";
 import { themeStore } from "../store/themeStore";
 
 const LoginScreen = ({ navigation }) => {
@@ -56,28 +56,27 @@ const LoginScreen = ({ navigation }) => {
       />
       <View style={styles.header}>
         <Image style={styles.logo} source={require("../../assets/icon.png")} />
-
         <CustomText style={theme.LoginScreen.title}>Share a Meal</CustomText>
       </View>
       <View style={styles.body}>
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="alex@appwrite.io"
-          title="Enter email address"
+          placeholder='alex@appwrite.io'
+          title='Enter email address'
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder="Hint min. 8 characters"
-          title="Enter password"
+          placeholder='Hint min. 8 characters'
+          title='Enter password'
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text="Login"
+          text='Login'
         />
         <View style={styles.orContainer}>
           <View style={theme.LoginScreen.line}></View>
@@ -100,11 +99,13 @@ const LoginScreen = ({ navigation }) => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: 16,
+            gap: 8,
           }}
         >
-          <Text style={styles.bottomText}>New here?</Text>
-          <Text style={[styles.bottomText, { color: COLORS.primary }]}>
-            {" "}
+          <Text style={theme.LoginScreen.bottomText}>New here?</Text>
+          <Text
+            style={[theme.LoginScreen.bottomText, { color: COLORS.primary }]}
+          >
             Click to Signup
           </Text>
         </Pressable>
@@ -165,7 +166,6 @@ const styles = StyleSheet.create({
   line: {
     height: 1,
     width: "95%",
-    backgroundColor: "lightgrey",
   },
   orText: {
     fontSize: 16,

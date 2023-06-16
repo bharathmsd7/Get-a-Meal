@@ -12,10 +12,10 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import InputText from "../components/InputText";
 import Button from "../components/Button";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { userStore } from "../store/userStore";
 import Spinner from "react-native-loading-spinner-overlay";
 import { COLORS } from "../constants/colors";
+import { themeStore } from "../store/themeStore";
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState();
@@ -27,6 +27,7 @@ const SignupScreen = ({ navigation }) => {
   const isLoading = userStore((state) => state.isLoading);
   const isError = userStore((state) => state.isError);
   const userSignup = userStore((state) => state.userSignup);
+  const theme = themeStore((state) => state.theme);
 
   const handleLogin = () => {
     userSignup(email, password, name);
@@ -55,41 +56,41 @@ const SignupScreen = ({ navigation }) => {
     <Layout>
       <View style={styles.header}>
         <Image style={styles.logo} source={require("../../assets/icon.png")} />
-        <Text style={styles.title}>Share a Meal</Text>
+        <Text style={theme.LoginScreen.title}>Share a Meal</Text>
       </View>
       <Spinner
         visible={isLoading}
         textContent={"Loading..."}
-        textStyle={{ fontSize: 16, fontFamily: "Outfit_600SemiBold" }}
+        textStyle={theme.LoginScreen.spinner}
       />
       <View style={styles.body}>
         <InputText
           value={name}
           onChangeText={(text) => setName(text)}
-          placeholder="Cool Name"
-          title="Enter Your Name"
+          placeholder='Cool Name'
+          title='Enter Your Name'
         />
         <InputText
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="test@test.com"
-          title="Enter email address"
+          placeholder='test@test.com'
+          title='Enter email address'
         />
         <InputText
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder="Hint min. 8 characters"
-          title="Enter password"
+          placeholder='Hint min. 8 characters'
+          title='Enter password'
           password={true}
         />
         <Button
           onPress={handleLogin}
           disabled={disabled}
           style={{ marginTop: 16 }}
-          text="Sign Up"
+          text='Sign Up'
         />
         <View style={styles.orContainer}>
-          <View style={styles.line}></View>
+          <View style={theme.LoginScreen.line}></View>
         </View>
         {/* <View style={styles.socialContainer}>
           <Image
@@ -110,11 +111,15 @@ const SignupScreen = ({ navigation }) => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: 16,
+            gap: 8,
           }}
         >
-          <Text style={styles.bottomText}>Already have an account?</Text>
-          <Text style={[styles.bottomText, { color: COLORS.primary }]}>
-            {" "}
+          <Text style={theme.LoginScreen.bottomText}>
+            Already have an account ?
+          </Text>
+          <Text
+            style={[theme.LoginScreen.bottomText, { color: COLORS.primary }]}
+          >
             Login here
           </Text>
         </Pressable>

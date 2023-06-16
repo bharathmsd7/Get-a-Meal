@@ -111,13 +111,13 @@ function Tabs({ navigation }) {
   return (
     <CurvedBottomBarExpo.Navigator
       screenOptions={{ headerShown: false }}
-      type="DOWN"
+      type='DOWN'
       style={styles.bottomBar}
       shadowStyle={styles.shawdow}
       height={65}
       circleWidth={50}
       bgColor={"#f8f8ff"}
-      initialRouteName="Home"
+      initialRouteName='Home'
       borderTopLeftRight
       renderCircle={({ selectedTab, navigate }) => (
         <Animated.View style={styles.btnCircleUp}>
@@ -125,31 +125,31 @@ function Tabs({ navigation }) {
             style={styles.button}
             onPress={() => navigation.navigate("Add")}
           >
-            <Ionicons name={"md-add"} color="white" size={35} />
+            <Ionicons name={"md-add"} color='white' size={35} />
           </TouchableOpacity>
         </Animated.View>
       )}
       tabBar={renderTabBar}
     >
       <CurvedBottomBarExpo.Screen
-        name="Home"
-        position="LEFT"
+        name='Home'
+        position='LEFT'
         component={() => <HomeScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name="Favourite"
-        position="LEFT"
+        name='Favourite'
+        position='LEFT'
         component={() => <FavouriteScreen />}
       />
       <CurvedBottomBarExpo.Screen
-        name="Donations"
+        name='Donations'
         component={() => <MyDonationsScreen />}
-        position="RIGHT"
+        position='RIGHT'
       />
       <CurvedBottomBarExpo.Screen
-        name="Profile"
+        name='Profile'
         component={() => <ProfileScreen />}
-        position="RIGHT"
+        position='RIGHT'
       />
     </CurvedBottomBarExpo.Navigator>
   );
@@ -160,23 +160,25 @@ const AppStack = ({ isProfileCreated }) => {
   if (isProfileCreated) {
     return (
       <Stack.Navigator
-        initialRouteName="Tabs"
-        screenOptions={{ headerShown: false }}
+        initialRouteName='Tabs'
+        screenOptions={{ headerShown: false, animation: "none" }}
       >
-        <Stack.Screen name="Tabs" component={Tabs} />
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="Add" component={AddScreen} />
-        <Stack.Screen name="Explore" component={ExploreScreen} />
-        <Stack.Screen name="Details" component={DetailScreen} />
-        <Stack.Screen name="Success" component={SuccessScreen} />
-        <Stack.Screen name="MyDonations" component={MyDonationsScreen} />
-        <Stack.Screen name="Edit" component={EditScreen} />
+        <Stack.Screen name='Tabs' component={Tabs} />
+        <Stack.Screen name='Search' component={SearchScreen} />
+        <Stack.Screen name='Add' component={AddScreen} />
+        <Stack.Screen name='Explore' component={ExploreScreen} />
+        <Stack.Screen name='Details' component={DetailScreen} />
+        <Stack.Screen name='Success' component={SuccessScreen} />
+        <Stack.Screen name='MyDonations' component={MyDonationsScreen} />
+        <Stack.Screen name='Edit' component={EditScreen} />
       </Stack.Navigator>
     );
   } else {
     return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, animation: "none" }}
+      >
+        <Stack.Screen name='CreateProfile' component={CreateProfileScreen} />
       </Stack.Navigator>
     );
   }
@@ -184,17 +186,17 @@ const AppStack = ({ isProfileCreated }) => {
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Signup" component={SignupScreen} />
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: "none" }}>
+      <Stack.Screen name='Login' component={LoginScreen} />
+      <Stack.Screen name='Signup' component={SignupScreen} />
     </Stack.Navigator>
   );
 };
 
 const OnboardingStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: "none" }}>
+      <Stack.Screen name='Onboarding' component={OnboardingScreen} />
     </Stack.Navigator>
   );
 };
@@ -233,8 +235,10 @@ function AppRouter({ onReady }) {
   return (
     <NavigationContainer onReady={onReady} ref={navigationRef}>
       {isLoading ? (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Splash" component={LoginSplash} />
+        <Stack.Navigator
+          screenOptions={{ headerShown: false, animation: "none" }}
+        >
+          <Stack.Screen name='Splash' component={LoginSplash} />
         </Stack.Navigator>
       ) : (
         <Router />

@@ -16,7 +16,7 @@ import { userStore } from "../store/userStore";
 import { donationStore } from "../store/donationStore";
 import { COLORS } from "../constants/colors";
 import { navigateToScreen } from "../utils/commonutils";
-import { MotiView } from "moti";
+import CustomText from "../components/CustomText";
 
 const HomeScreen = ({ navigation }) => {
   const [gender, setGender] = useState("male");
@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <Layout>
       <View style={styles.headerContainer}>
-        <Text style={styles.title}>Bonjour {user?.name} 👋🏻</Text>
+        <CustomText style={styles.title}>Bonjour {user?.name} 👋🏻</CustomText>
         <Avatar gender={gender} />
       </View>
 
@@ -213,6 +213,5 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Outfit_600SemiBold",
     fontSize: 24,
-    color: COLORS.black,
   },
 });

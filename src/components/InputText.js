@@ -17,7 +17,9 @@ const InputText = ({
   maxLength = 35,
 }) => {
   const theme = themeStore((state) => state.theme);
-  const [isFocused, setIsFocused] = useState("#d3d3d3");
+  const [isFocused, setIsFocused] = useState(
+    theme.inputText.borderColorUnFocused
+  );
 
   return (
     <View style={styles.container}>
@@ -26,19 +28,22 @@ const InputText = ({
         editable={editable}
         disabled={disabled}
         onFocus={() => {
-          setIsFocused("black");
+          setIsFocused(theme.inputText.borderColorFocused);
         }}
         onBlur={() => {
-          setIsFocused("lightgrey");
+          setIsFocused(theme.inputText.borderColorUnFocused);
         }}
         value={value}
         onChangeText={onChangeText}
-        placeholderTextColor={"lightgrey"}
+        placeholderTextColor={theme.inputText.borderColorUnFocused}
         placeholder={placeholder}
         maxLength={maxLength}
-        cursorColor={COLORS.black}
+        cursorColor={theme.inputText.cursorColor}
         secureTextEntry={password}
-        style={[styles.input, { borderColor: isFocused }]}
+        style={[
+          styles.input,
+          { borderColor: isFocused, color: theme.inputText.textColor },
+        ]}
       />
     </View>
   );
@@ -58,13 +63,11 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1.5,
-    borderColor: "lightgrey",
     height: 50,
     borderRadius: 10,
     padding: 16,
     fontSize: 16,
     paddingLeft: 24,
-    color: COLORS.inputText,
     fontFamily: "Outfit_600SemiBold",
   },
 });
